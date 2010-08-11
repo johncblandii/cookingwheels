@@ -1,0 +1,9 @@
+!.htaccess
+!.gitignore
+.*
+*.log
+settings.xml
+.DS_Store
+WEB-INF
+!plugins/*.zip
+plugins
