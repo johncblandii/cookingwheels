@@ -1,4 +1,4 @@
 Options +FollowSymLinks
 RewriteEngine On
-RewriteCond %{REQUEST_URI} !^.*/(assets|flex2gateway|jrunscripts|cfide|cfformgateway|cffileservlet|railo-context|files|misc|robots.txt|sitemap.xml|rewrite.cfm)($|/.*$) [NC]
+RewriteCond %{REQUEST_URI} !^.*/(images|javascripts|stylesheets|flex2gateway|jrunscripts|cfide|cfformgateway|cffileservlet|railo-context|files|misc|robots.txt|sitemap.xml|rewrite.cfm)($|/.*$) [NC]
 RewriteRule ^(.*)$ ./rewrite.cfm/$1 [NS,L]

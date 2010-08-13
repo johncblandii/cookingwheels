@@ -12,11 +12,11 @@
 			<cfset validatesUniquenessOf(properties="username", allowBlank=false, minimum=5, maximum=25) />
 			<cfset validatesUniquenessOf(properties="emailaddress", allowBlank=false, minimum=5, maximum=140) />
 			<cfset validatesFormatOf(properties="emailaddress", format="email") />
-			<cfset validatesConfirmationOf(properties="password") />
+			<cfset validatesConfirmationOf(property="password") />
 		
 		<!--- CALLBACKS --->
 			<cfset beforeValidationOnCreate("$beforeValidationOnCreate") />
-			<cfset beforeCreate("$saltPassword") />
+			<cfset beforeCreate("$beforeCreate") />
 			<cfset beforeUpdate("$beforeUpdate") />
 	</cffunction>
 
@@ -28,7 +28,11 @@
 		</cfif>
 	</cffunction>
 	
-	<cffunction access="private" name="$beforeUpdate" hint="Callback to process the model before an update">
+	<cffunction access="private" name="$beforeCreate" hint="Callback to process the model before creating an entry">
+		<cfset $saltPassword() />
+	</cffunction>
+	
+	<cffunction access="private" name="$beforeUpdate" hint="Callback to process the model before updating an entry">
 		<!--- if the password has changed, salt it --->
 		<cfif hasChanged("password")>
 			<cfset $saltPassword() />
@@ -37,7 +41,7 @@
 
 	<cffunction access="private" name="$saltPassword" hint="Takes the stored password and salts it then updates the password.">
 		<cfset this.passwordsalt = getUniqueValue() />
-		<cfset this.password = $hashPasssword(this.password, this.passwordsalt) />
+		<cfset this.password = $getPassswordHash(this.password, this.passwordsalt) />
 	</cffunction>
 	
 	<cffunction access="public" name="$getPassswordHash" hint="Hashes the password with a salt">

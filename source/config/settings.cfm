@@ -16,6 +16,17 @@
 	
 	<cfset set(functionName="javascriptIncludeTag", type="text/javascript") />
 	
+	<cfset set(functionName="textField", labelPlacement="before", prependToLabel="<div>", append="</div>") />
+	<cfset set(functionName="dateSelect", labelPlacement="before", prependToLabel="<div>", append="</div>") />
+	<cfset set(functionName="dateTimeSelect", labelPlacement="before", prependToLabel="<div>", append="</div>") />
+	<cfset set(functionName="fileField", labelPlacement="before", prependToLabel="<div>", append="</div>") />
+	<cfset set(functionName="passwordField", labelPlacement="before", prependToLabel="<div>", append="</div>") />
+	<cfset set(functionName="radioButton", labelPlacement="wrap") />
+	<cfset set(functionName="checkBox", labelPlacement="wrap") />
+	<cfset set(functionName="select", labelPlacement="before", prependToLabel="<div>", append="</div>") />
+	<cfset set(functionName="textArea", labelPlacement="before", prependToLabel="<div>", append="</div>") />
+	<cfset set(functionName="timeSelect", labelPlacement="before", prependToLabel="<div>", append="</div>") />
+	
 <!--- MISC DEFAULTS --->
 	<cfset set(obfuscateUrls="true") />
 	<cfset set(reloadPassword="cookit") />

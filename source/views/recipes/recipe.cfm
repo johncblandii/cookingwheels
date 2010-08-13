@@ -1,1 +1,3 @@
-﻿recipe
+﻿<cfoutput>
+#includePartial("/core/recipe")#
+</cfoutput>

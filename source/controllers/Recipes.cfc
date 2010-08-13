@@ -15,7 +15,7 @@
 	<cffunction access="public" name="top10" hint="Shows the top 10 entries by rating">
 	</cffunction>
 	
-	<cffunction access="public" name="view" hint="Shows one specific recipe entry">
+	<cffunction access="public" name="recipe" hint="Shows one specific recipe entry">
 	</cffunction>
 	
 	<cffunction access="public" name="manage" hint="Manages one specific recipe entry">

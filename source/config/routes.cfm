@@ -8,8 +8,8 @@ The use of some specific routes here is to circumvent having to create multiple 
 	<cfset addRoute(name="top10recipes", pattern="tag/add", controller="tags", action="add") />
 
 <!--- RECIPE --->
-	<cfset addRoute(name="managerecipe", pattern="recipe/[recipeid]/manage", controller="recipe", action="manage") />
-	<cfset addRoute(name="recipe", pattern="recipe/[recipeid]/[text]", controller="recipe", action="view") />
+	<cfset addRoute(name="managerecipe", pattern="recipe/[recipeid]/manage", controller="recipes", action="manage") />
+	<cfset addRoute(name="recipe", pattern="recipe/[recipeid]/[text]", controller="recipes", action="recipe") />
 
 <!--- DEFAULT --->
 	<cfset addRoute(name="home", pattern="", controller="cooking", action="index") />

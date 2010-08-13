@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
 	<title>ColdFusion on Wheels</title>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -77,12 +78,12 @@
 		text-decoration: none;
 	}
 
-	#content ul, #content ol
+	#content ul
 	{
 		margin: 10px 0 15px 25px;
 	}
 
-	#content ul li, #content ol li
+	#content ul li
 	{
 		padding-bottom: 0;
 	}
@@ -125,19 +126,19 @@
 		text-transform: uppercase;
 		width: 75px;
 	}
-
+	
 	#logo a
 	{
 		color: #fff;
 		display: block;
 		text-decoration: none;
 	}
-
+	
 	#logo #cf a:first-letter, #logo #wheels a:first-letter
 	{
 		font-size: 125%;
 	}
-
+	
 	#logo #cf a
 	{
 		background: #900;
@@ -146,7 +147,7 @@
 		padding: 18px 0 16px 0;
 		text-align: center;
 	}
-
+	
 	#logo #wheels a
 	{
 		background: #333;

@@ -3,7 +3,7 @@
 	<cfargument name="eventName" type="any" required="true">
 	<cfscript>
 		var returnValue = "";
-		returnValue = $simpleLock(execute="$runOnError", executeArgs=arguments, name="wheelsReloadLock", type="readOnly", timeout=180);
+		returnValue = $simpleLock(execute="$runOnError", executeArgs=arguments, name="wheelsReloadLock", type="readOnly");
 	</cfscript>
 	<cfoutput>
 		#returnValue#
@@ -18,19 +18,19 @@
 
 		if (StructKeyExists(application, "wheels") && StructKeyExists(application.wheels, "initialized"))
 		{
-			if (application.wheels.sendEmailOnError && Len(application.wheels.errorEmailAddress))
+			if (application.wheels.sendEmailOnError)
 			{
 				loc.mailArgs = {};
-				$args(name="sendEmail", args=loc.mailArgs);
 				if (StructKeyExists(application.wheels, "errorEmailServer") && Len(application.wheels.errorEmailServer))
 					loc.mailArgs.server = application.wheels.errorEmailServer;
 				loc.mailArgs.from = application.wheels.errorEmailAddress;
 				loc.mailArgs.to = application.wheels.errorEmailAddress;
-				loc.mailArgs.subject = application.wheels.errorEmailSubject;
+				loc.mailArgs.subject = "Error";
 				loc.mailArgs.type = "html";
-				loc.mailArgs.tagContent = $includeAndReturnOutput($template="wheels/events/onerror/cfmlerror.cfm", exception=arguments.exception);
-				StructDelete(loc.mailArgs, "layouts", false);
-				StructDelete(loc.mailArgs, "detectMultiPart", false);
+				loc.mailArgs.body = [$includeAndReturnOutput($template="wheels/events/onerror/cfmlerror.cfm", exception=arguments.exception)];
+				$insertDefaults(name="sendEmail", input=loc.mailArgs);
+				StructDelete(loc.mailArgs, "layouts");
+				StructDelete(loc.mailArgs, "detectMultiPart");
 				$mail(argumentCollection=loc.mailArgs);
 			}
 	

@@ -1,11 +1,7 @@
-<cfinclude template="caching.cfm">
+<cfinclude template="initialization.cfm">
 <cfinclude template="filters.cfm">
 <cfinclude template="flash.cfm">
-<cfinclude template="initialization.cfm">
-<cfinclude template="layouts.cfm">
-<cfinclude template="processing.cfm">
-<cfinclude template="miscellaneous.cfm">
-<cfinclude template="redirection.cfm">
+<cfinclude template="caching.cfm">
 <cfinclude template="rendering.cfm">
-<cfinclude template="request.cfm">
-<cfinclude template="verifies.cfm">
+<cfinclude template="redirection.cfm">
+<cfinclude template="miscellaneous.cfm">

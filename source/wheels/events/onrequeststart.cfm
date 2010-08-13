@@ -11,11 +11,11 @@
 		if (StructKeyExists(URL, "reload") && (!StructKeyExists(application, "wheels") || !StructKeyExists(application.wheels, "reloadPassword") || !Len(application.wheels.reloadPassword) || (StructKeyExists(URL, "password") && URL.password == application.wheels.reloadPassword)))
 		{
 			$debugPoint("total,reload");
-			$simpleLock(execute="onApplicationStart", name="wheelsReloadLock", type="exclusive", timeout=180);
+			$simpleLock(execute="onApplicationStart", name="wheelsReloadLock", type="exclusive");
 		}
 
 		// run the rest of the request start code
-		$simpleLock(execute="$runOnRequestStart", executeArgs=arguments, name="wheelsReloadLock", type="readOnly", timeout=180);
+		$simpleLock(execute="$runOnRequestStart", executeArgs=arguments, name="wheelsReloadLock", type="readOnly");
 	</cfscript>
 </cffunction>
 
@@ -38,14 +38,6 @@
 		// copy over the cgi variables we need to the request scope unless it's already been done on application start
 		if (!StructKeyExists(request, "cgi"))
 			request.cgi = $cgiScope();
-		
-		// reload the plugins on each request if cachePlugins is set to false
-		if (!application.wheels.cachePlugins)
-			$loadPlugins();
-
-		// inject methods from plugins directly to Application.cfc
-		if (!StructIsEmpty(application.wheels.mixins))
-			$include(template="wheels/plugins/injection.cfm");
 
 		if (application.wheels.environment == "maintenance")
 		{
@@ -64,23 +56,24 @@
 			StructDelete(variables, "onRequest");
 		}
 
+		// inject methods from plugins directly to Application.cfc
+		if (!StructIsEmpty(application.wheels.mixins))
+			$include(template="wheels/plugins/injection.cfm");
+
 		request.wheels.params = {};
 		request.wheels.cache = {};
-		
-		// create a structure to track the transaction status for all adapters
-		request.wheels.transactions = {};
-
-		request.wheels.cacheCounts = {};
-		request.wheels.cacheCounts.hits = 0;
-		request.wheels.cacheCounts.misses = 0;
-		request.wheels.cacheCounts.culls = 0;
 
 		if (!application.wheels.cacheModelInitialization)
-			$simpleLock(name="modelLock", execute="$clearModelInitializationCache", type="exclusive");
+			$simpleLock(name="modelLock", execute="$clearModelInitializationCache");
 		if (!application.wheels.cacheControllerInitialization)
-			$simpleLock(name="controllerLock", execute="$clearControllerInitializationCache", type="exclusive");
+			$simpleLock(name="controllerLock", execute="$clearControllerInitializationCache");
 		if (!application.wheels.cacheRoutes)
-			$loadRoutes();
+		{
+			ArrayClear(application.wheels.routes);
+			StructClear(application.wheels.namedRoutePositions);
+			$include(template="#application.wheels.configPath#/routes.cfm");
+			$include(template="wheels/events/onapplicationstart/routes.cfm");
+		}
 		if (!application.wheels.cacheDatabaseSchema)
 			$clearCache("sql");
 		$include(template="#application.wheels.eventPath#/onrequeststart.cfm");

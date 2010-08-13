@@ -1,3 +1,3 @@
 <cfinclude template="../styles/header.cfm">
-<cfoutput>#includeContent()#</cfoutput>
+<cfoutput>#contentForLayout()#</cfoutput>
 <cfinclude template="../styles/footer.cfm">
