@@ -1,7 +1,15 @@
-<!---
-	This is the parent controller file that all your controllers should extend.
-	You can add functions to this file to make them globally available in all your controllers.
-	Do not delete this file.
---->
-<cfcomponent extends="Wheels">
+<cfcomponent extends="Wheels" hint="Core controller with global functions">
+<!--- CONSTRUCTOR --->
+	<cffunction access="public" name="init" description="Constructor">
+	</cffunction>
+	
+<!--- PUBLIC METHODS --->
+	<cffunction access="public" name="isLoggedIn" description="Checks the session scope to see if the user is logged in">
+		<cfreturn structKeyExists(session, "user") />
+	</cffunction>
+	
+<!--- PRIVATE METHODS --->
+	<cffunction access="private" name="$authorize" description="Authorizes the users access to a specific portion of the site">
+		<cfreturn isLoggedIn() />
+	</cffunction>
 </cfcomponent>

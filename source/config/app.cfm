@@ -1,4 +1,5 @@
-<!---
-	Place settings that should go in the Application.cfc's "this" scope here.
-	<cfset this.name = "MyAppName">
---->
+<cfscript>
+	this.name = "CookingWheels";
+	this.sessionManagement = true;
+	this.sessionTimeout = CreateTimespan(0, 0, 40, 0);
+</cfscript>

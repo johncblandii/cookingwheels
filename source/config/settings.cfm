@@ -1,14 +1,21 @@
-<!---
-	If you leave these settings commented out, Wheels will set the data source name to the same name as the folder the application resides in.
-	<cfset set(dataSourceName="")>
-	<cfset set(dataSourceUserName="")>
-	<cfset set(dataSourcePassword="")> 
---->
+<cfset set(dataSourceName="cookingwheels") />
+<cfset set(URLRewriting="On")>
 
-<!---
-	If you leave this setting commented out, Wheels will try to determine the URL rewrite capabilities automatically.
-	The URLRewriting setting can bet set to "On", "Partial" or "Off".
-	To run with "Partial" rewriting, the "PATH_INFO" variable needs to be supported by the web server.
-	To run with rewriting "On", you need to apply the necessary rewrite rules on the web server first.
-	<cfset set(URLRewriting="Partial")>
---->
+<!--- FUNCTIONS DEFAULTS --->
+	<cfset set(functionName="findAll", perPage=20) />
+	<cfset set(functionName="mailTo", encode=true) />
+	
+	<cfset set(functionName="validatesConfirmationOf", message="[property] doesn't match confirmation") />
+	<cfset set(functionName="validatesExclusionOf", message="[property] is reserved", allowBlank=false) />
+	<cfset set(functionName="validatesFormatOf", message="Format invalid: [property]", allowBlank=false) />
+	<cfset set(functionName="validatesInclusionOf", message="[property] is not included in the list", allowBlank=false) />
+	<cfset set(functionName="validatesLengthOf", message="[property] is the wrong length") />
+	<cfset set(functionName="validatesNumericalityOf", message="[property] is not a number", allowBlank=false, onlyInteger=false) />
+	<cfset set(functionName="validatesPresenceOf", message="[property] is empty") />
+	<cfset set(functionName="validatesUniquenessOf", message="[property] must be unique") />
+	
+	<cfset set(functionName="javascriptIncludeTag", type="text/javascript") />
+	
+<!--- MISC DEFAULTS --->
+	<cfset set(obfuscateUrls="true") />
+	<cfset set(reloadPassword="cookit") />
