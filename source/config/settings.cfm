@@ -2,7 +2,7 @@
 <cfset set(URLRewriting="On")>
 
 <!--- FUNCTIONS DEFAULTS --->
-	<cfset set(functionName="findAll", perPage=20) />
+	<cfset set(functionName="findAll", perPage=20, returnas="object") />
 	<cfset set(functionName="mailTo", encode=true) />
 	
 	<cfset set(functionName="validatesConfirmationOf", message="[property] doesn't match confirmation") />
