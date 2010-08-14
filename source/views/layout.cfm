@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Using Google Apps SMTP | Cookbook | ColdFusion on Wheels</title>
+		<title>CFWheels Cookbook | Cooking Wheels</title>
 		<link rel="shortcut icon" type="image/x-icon" href="/images/wheels-icon-16x16.png" />
 		<link href="/stylesheets/base.css" media="all" rel="stylesheet" type="text/css" />
 		<link href="/stylesheets/home.css" media="all" rel="stylesheet" type="text/css" />
@@ -61,17 +61,9 @@
 					<div id="local-navigation">
 						<h1>Cooking Wheels</h1>
 						<p id="introduction" style="line-height: ."> Get'cha cook on! </p>
-						<h3>[subnav title]</h3>
 						<ul>
-							<li> <a href="/docs/cookbook/addrecipe">Create a Recipe</a> [&lt;-- replace w/ image] </li>
-							<li> <a href="/docs/cookbook/edit/a3xdf">Edit Recipe</a> [&lt;-- only recipe creator] </li>
+							<li>#linkTo(route="newrecipe", text="Submit a Recipe")#</li>
 						</ul>
-						<h3>Tags</h3>
-						#includePartial("/core/nav")#
-						<h3> Related Recipes </h3>
-						#includePartial("/core/nav")#
-						<h3> Latest Recipes </h3>
-						#includePartial("/core/nav")#
 					</div>
 					<div class="has-local-navigation">
 						#contentForLayout()#

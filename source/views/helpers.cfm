@@ -6,3 +6,8 @@
 		</cfoutput>
 	</cfif>
 </cffunction>
+
+<cffunction name="getFormattedDate">
+	<cfargument name="date" type="string" required="true" />
+	<cfreturn dateFormat(arguments.date, "MMMM dd, yyyy") & " at " & timeFormat(arguments.date, "short") />
+</cffunction>

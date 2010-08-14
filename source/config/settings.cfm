@@ -16,6 +16,7 @@
 	
 	<cfset set(functionName="javascriptIncludeTag", type="text/javascript") />
 	
+	<cfset set(functionName="errorMessagesFor", class="error", showDuplicates=false) />
 	<cfset set(functionName="textField", labelPlacement="before", prependToLabel="<div>", append="</div>") />
 	<cfset set(functionName="dateSelect", labelPlacement="before", prependToLabel="<div>", append="</div>") />
 	<cfset set(functionName="dateTimeSelect", labelPlacement="before", prependToLabel="<div>", append="</div>") />

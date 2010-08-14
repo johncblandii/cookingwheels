@@ -1,4 +1,4 @@
-<cfcomponent extends="Wheels">
+<cfcomponent extends="Model">
 <!--- CONSTRUCTOR --->
 	<cffunction access="public" name="init" hint="Constructor">
 		<!--- RELATIONSHIPS --->

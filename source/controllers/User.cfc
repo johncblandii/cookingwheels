@@ -36,5 +36,12 @@
 	</cffunction>
 	
 	<cffunction access="public" name="profile" hint="Shows a users profile">
+		<cfif NOT isDefined("params.userid") AND NOT isLoggedIn()>
+			<cfset redirectTo(action="index") />
+		<cfelseif NOT isDefined("params.userid")>
+			<cfset params.userid = session.user.id />
+		</cfif>
+		
+		<cfset $user = model("user").findOneById(params.userid) />
 	</cffunction>
 </cfcomponent>
