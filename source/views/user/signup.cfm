@@ -5,7 +5,7 @@
 		<fieldset>
 			<legend>Authentication</legend>
 			#textField(label="Username", objectname="$user", property="username")#
-			#passwordField(label="Username", objectname="$user", property="password")#
+			#passwordField(label="Password", objectname="$user", property="password")#
 			#passwordField(label="Confirm Your Password", objectname="$user", property="passwordConfirmation")#
 		</fieldset>
 		<fieldset>
