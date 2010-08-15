@@ -25,7 +25,14 @@
 			<cfset $user = $user.findOneByUsername(params.$user.username) />
 			<cfif isObject($user) AND $user.authenticate(params.$user.password)>
 				<cfset session.user = $user />
-				<cfset redirectTo(action="profile") />
+				<cfset paramargs = StructNew() />
+				<cfif isDefined("session.redirectParams")>
+					<cfset paramargs = structCopy(session.redirectParams) />
+					<cfset structDelete(session, "redirectParams") />
+				<cfelse>
+					<cfset paramargs.action="profile" />
+				</cfif>
+				<cfset redirectTo(argumentCollection=paramargs) />
 			</cfif>
 		</cfif>
 	</cffunction>
@@ -37,11 +44,10 @@
 	
 	<cffunction access="public" name="profile" hint="Shows a users profile">
 		<cfif NOT isDefined("params.userid") AND NOT isLoggedIn()>
-			<cfset redirectTo(action="index") />
+			<cfset redirectTo(route="user") />
 		<cfelseif NOT isDefined("params.userid")>
 			<cfset params.userid = session.user.id />
 		</cfif>
-		
 		<cfset $user = model("user").findOneById(params.userid) />
 	</cffunction>
 </cfcomponent>

@@ -3,7 +3,7 @@
 	<cffunction access="public" name="init" hint="Constructor">
 		<!--- RELATIONSHIPS --->
 			<cfset belongsTo("recipe") />
-			<cfset belongsTo("user") />
+			<cfset belongsTo("tag") />
 	</cffunction>
 
 <!--- CALLBACKS --->

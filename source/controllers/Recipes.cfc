@@ -2,7 +2,7 @@
 <!--- CONSTRUCTOR --->
 	<cffunction access="public" name="init" hint="Constructor">
 		<cfset super.init() />
-		
+		<cfset filters(through="$authorize", only="manage") />
 	</cffunction>
 
 <!--- PUBLIC METHODS --->

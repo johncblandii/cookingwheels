@@ -10,6 +10,7 @@
 		#textField(label="Problem", objectname="$data", property="problem")#
 		#textField(label="Solution", objectname="$data", property="solution")#
 		#textArea(label="Details", objectname="$data", property="details")#
+		#textField(label="Tags", objectname="$data", property="tags")#
 		#submitTag()#
 	#endFormTag()#
 </cfoutput>

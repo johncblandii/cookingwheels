@@ -9,8 +9,11 @@
 	</cffunction>
 	
 <!--- PRIVATE METHODS --->
-	<cffunction access="private" name="$authorize" description="Authorizes the users access to a specific portion of the site">
-		<cfreturn isLoggedIn() />
+	<cffunction access="private" name="$authorize" description="Authorizes the users access to a specific portion of the site; redirects if fails">
+		<cfif NOT isLoggedIn()>
+			<cfset session.redirectParams = structCopy(params) />
+			<cfset redirectTo(route="signin") />
+		</cfif>
 	</cffunction>
 	
 	<cffunction access="private" name="$doDetailPage" hint="Manages CRUD interaction">

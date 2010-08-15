@@ -9,7 +9,7 @@
 			[<a href="##comment">Add Comment</a>]
 			<ol class="commentlist">
 				<cfloop array="#$comments#" index="comment">
-					#includePartial(partial="comment", $comment=comment)#
+					#includePartial(partial="/recipes/comment", $comment=comment)#
 				</cfloop>
 			</ol>
 		</cfif>
@@ -26,7 +26,7 @@
 				</fieldset>
 			#endFormTag()#
 		<cfelse>
-			<p><em>You must be #linkTo(controller="account", action="signin", text="signed in")# to submit a comment.</em></p>
+			<p><em>You must be #linkTo(route="signin", text="signed in")# to submit a comment.</em></p>
 		</cfif>
 	</div>
 </cfoutput>

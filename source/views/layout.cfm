@@ -29,7 +29,7 @@
 				<div id="tagline"> An open source <abbr title="ColdFusion Markup Language">CFML</abbr> framework<br />inspired by Ruby on Rails. </div>
 				<div id="utility">
 					<ul class="inline">
-						<li class="first"> <strong>Welcome, <cfif isLoggedIn()>#session.user.getDisplayName()#<cfelse>guest</cfif>!</strong> </li>
+						<li class="first"> <strong>Welcome, <cfif isLoggedIn()>#linkTo(route="userprofile", text=session.user.getDisplayName())#<cfelse>guest</cfif>!</strong> </li>
 						<cfif isLoggedIn()>
 							<li>#linkTo(controller="user", action="signout", text="Sign Out")#</li>
 						<cfelse>
@@ -53,8 +53,8 @@
 				</div>
 				<div id="global-navigation">#includePartial("/core/nav")#</div>
 				<div id="breadcrumbs">
-					<div id="feeds"> <a href="/feeds">Feeds</a> </div>
-					<a href="/">Home</a> / <a href="/docs">Documentation</a> / <a href="/blah">Cookbook</a> / <strong>Recipe: Using Google Apps SMTP</strong> </div>
+					<div id="feeds">#linkTo(controller="rss", text="Feeds")#</div>
+					<a href="/">Home</a> / <strong>Cookbook</strong></div>
 			</div>
 			<div id="contentWrapper" class="content">
 				<div id="content">
@@ -74,7 +74,7 @@
 				<div class="content">
 					<p id="hosting"> <a href="http://www.viviotech.net/">ColdFusion hosting</a> provided by<br />
 						<img alt="Vivio icon" height="16" src="/images/vivio_icon.png" width="16" /> Vivio Technologies. </p>
-					<p class="copyright"> © #dateformat(now(), "year")# ColdFusion on Wheels<br />
+					<p class="copyright"> &copy; #dateformat(now(), "yyyy")# ColdFusion on Wheels<br />
 						Wheels is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. </p>
 				</div>
 			</div>
