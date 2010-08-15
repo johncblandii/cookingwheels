@@ -7,7 +7,7 @@
 		<p>Member since: #getFormattedDate($user.createdat)#</p>
 		
 		<h2>Recent Recipes</h2>
-		<cfset $recipes = $user.recipes() />
+		<cfset $recipes = $user.recipes(maxRows=5) />
 		<cfif NOT isArray($recipes) OR (isArray($recipes) AND arraylen($recipes) EQ 0)>
 			Hrmm...no recipes. Someone is lurching and not submitting. Get'em!
 		<cfelse>

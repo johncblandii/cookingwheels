@@ -11,7 +11,7 @@
 			<cfset validatesPresenceOf(properties="password") />
 			<cfset validatesUniquenessOf(properties="username", allowBlank=false, minimum=5, maximum=25) />
 			<cfset validatesUniquenessOf(properties="emailaddress", allowBlank=false, minimum=5, maximum=140) />
-			<cfset validatesFormatOf(properties="emailaddress", format="email") />
+			<cfset validatesFormatOf(properties="emailaddress", format="email", message="This Email Address is already registered.") />
 			<cfset validatesConfirmationOf(property="password") />
 		
 		<!--- CALLBACKS --->

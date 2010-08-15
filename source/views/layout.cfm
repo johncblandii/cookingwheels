@@ -29,7 +29,7 @@
 				<div id="tagline"> An open source <abbr title="ColdFusion Markup Language">CFML</abbr> framework<br />inspired by Ruby on Rails. </div>
 				<div id="utility">
 					<ul class="inline">
-						<li class="first"> <strong>Welcome, <cfif isLoggedIn()>#linkTo(route="userprofile", text=session.user.getDisplayName())#<cfelse>guest</cfif>!</strong> </li>
+						<li class="first"> <strong>Welcome, <cfif isLoggedIn()>#linkTo(route="userprofile", userid=session.user.id, text=session.user.getDisplayName())#<cfelse>guest</cfif>!</strong> </li>
 						<cfif isLoggedIn()>
 							<li>#linkTo(controller="user", action="signout", text="Sign Out")#</li>
 						<cfelse>

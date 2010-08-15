@@ -9,28 +9,34 @@
 	</cffunction>
 	
 	<cffunction access="public" name="signup" hint="Registers a user for the site">
+		<cfset var paramargs = StructNew() />
 		<cfset $user = model("user").new() />
 		<cfif isPost() AND isDefined("params.$user")>
 			<cfset $user.setProperties(params.$user) />
 			<cfif $user.valid() AND $user.save()>
 				<cfset session.user = $user />
-				<cfset redirectTo(action="profile") />
+				<cfset paramargs.route = "userprofile" />
+				<cfset paramargs.userid = session.user.id />
+				<cfset paramargs.text = session.user.getDisplayName() />
+				<cfset redirectTo(argumentCollection=paramargs) />
 			</cfif>
 		</cfif>
 	</cffunction>
 	
 	<cffunction access="public" name="signin" hint="Signs a user into the site">
+		<cfset var paramargs = StructNew() />
 		<cfset $user = model("user").new() />
 		<cfif isPost() AND isDefined("params.$user")>
 			<cfset $user = $user.findOneByUsername(params.$user.username) />
 			<cfif isObject($user) AND $user.authenticate(params.$user.password)>
 				<cfset session.user = $user />
-				<cfset paramargs = StructNew() />
 				<cfif isDefined("session.redirectParams")>
 					<cfset paramargs = structCopy(session.redirectParams) />
 					<cfset structDelete(session, "redirectParams") />
 				<cfelse>
-					<cfset paramargs.action="profile" />
+					<cfset paramargs.route = "userprofile" />
+					<cfset paramargs.userid = session.user.id />
+					<cfset paramargs.text = session.user.getDisplayName() />
 				</cfif>
 				<cfset redirectTo(argumentCollection=paramargs) />
 			</cfif>
@@ -43,7 +49,7 @@
 	</cffunction>
 	
 	<cffunction access="public" name="profile" hint="Shows a users profile">
-		<cfif NOT isDefined("params.userid") AND NOT isLoggedIn()>
+		<cfif NOT isDefined("params.userid") OR NOT isLoggedIn()>
 			<cfset redirectTo(route="user") />
 		<cfelseif NOT isDefined("params.userid")>
 			<cfset params.userid = session.user.id />
