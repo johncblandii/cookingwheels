@@ -49,7 +49,7 @@
 	</cffunction>
 	
 	<cffunction access="public" name="profile" hint="Shows a users profile">
-		<cfif NOT isDefined("params.userid") OR NOT isLoggedIn()>
+		<cfif NOT isDefined("params.userid") AND NOT isLoggedIn()>
 			<cfset redirectTo(route="user") />
 		<cfelseif NOT isDefined("params.userid")>
 			<cfset params.userid = session.user.id />

@@ -4,7 +4,7 @@
 <cfoutput>
 	<h1>#$recipe.title#</h1>
 	<p class="recipe-utility">
-		#getFormattedDate($recipe.getLatestDate())# by #linkTo(controller="user", action="profile", key=$recipe.userid, text=$recipe.user.getDisplayName())#
+		#getFormattedDate($recipe.getLatestDate())# by #linkTo(route="userprofile", userid=$recipe.userid, text=$recipe.user.getDisplayName())#
 	</p>
 	<p class="recipe-utility">
 		Tags: 

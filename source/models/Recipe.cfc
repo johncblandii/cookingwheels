@@ -34,7 +34,7 @@
 		<!--- Takes the string 'this.tags' and saves them to the database --->
 		<cfset var loc = structNew() />
 		<cfset loc.tagidlist = "" />
-		<cfloop list="#this.tags#" index="tag" delimiters=" ">
+		<cfloop list="#this.tags#" index="tag" delimiters=" ,;">
 			<cfset model("recipetag").create(recipeid=this.id, tagid=model("tag").createUnique(trim(tag))) />
 		</cfloop>
 	</cffunction>
