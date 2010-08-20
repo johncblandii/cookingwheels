@@ -28,6 +28,15 @@
 		<cfif isDefined("session.user.id")>
 			<cfset this.lasteditedbyuserid = session.user.id />
 		</cfif>
+		<cfif isDefined("this.problem")>
+			<cfset this.problem = htmlCodeFormat(this.problem) />
+		</cfif>
+		<cfif isDefined("this.solution")>
+			<cfset this.solution = htmlCodeFormat(this.solution) />
+		</cfif>
+		<cfif isDefined("this.details")>
+			<cfset this.details = htmlCodeFormat(this.details) />
+		</cfif>
 	</cffunction>
 	
 	<cffunction access="private" name="$afterSave" hint="Callback to manage model after a save">

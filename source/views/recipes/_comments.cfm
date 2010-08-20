@@ -4,7 +4,7 @@
 		<h2>Comments</h2>
 		<p> Read and submit questions, clarifications, and corrections about this recipe.</p>
 		<cfif NOT isDefined("$comments") OR (isArray($comments) AND NOT arraylen($comments) GT 0)>
-			<p><em>There are no comments for this chapter. Be the first to comment!</em></p>
+			<p><em>There are no comments for this recipe. Be the first to comment!</em></p>
 		<cfelse>
 			[<a href="##comment">Add Comment</a>]
 			<ol class="commentlist">

@@ -17,6 +17,6 @@
 	<h3>Solution</h3>
 	<p>#$recipe.solution#</p>
 	<h3>Details</h3>
-	<p>#autoLink($recipe.details)#</p>
+	<p>#paragraphFormat($recipe.details)#</p>
 	#includePartial(partial="/recipes/comments", $comments=$recipe.comments(include='user'))#
 </cfoutput>
