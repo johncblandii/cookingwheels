@@ -36,6 +36,8 @@
 		</cfif>
 		<cfif isDefined("this.details")>
 			<cfset this.details = htmlCodeFormat(this.details) />
+			<cfset this.details = replaceNoCase(this.details, "[code]", "<code class='block'>", "all") />
+			<cfset this.details = replaceNoCase(this.details, "[/code]", "</code>", "all") />
 		</cfif>
 	</cffunction>
 	
