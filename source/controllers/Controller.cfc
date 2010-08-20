@@ -1,6 +1,7 @@
 <cfcomponent extends="Wheels" hint="Core controller with global functions">
 <!--- CONSTRUCTOR --->
 	<cffunction access="public" name="init" description="Constructor">
+		<cfset filters(through="$initializeProperties") />
 	</cffunction>
 	
 <!--- PUBLIC METHODS --->
@@ -9,6 +10,10 @@
 	</cffunction>
 	
 <!--- PRIVATE METHODS --->
+	<cffunction access="private" name="$initializeProperties" description="Initializes global properties for all controllers">
+		<cfset $latesttags = model("tag").getTopTags() />
+	</cffunction>
+
 	<cffunction access="private" name="$authorize" description="Authorizes the users access to a specific portion of the site; redirects if fails">
 		<cfif NOT isLoggedIn()>
 			<cfset session.redirectParams = structCopy(params) />

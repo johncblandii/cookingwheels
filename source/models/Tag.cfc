@@ -20,7 +20,6 @@
 	</cffunction>
 
 <!--- PUBLIC METHODS --->
-
 	<cffunction access="public" name="createUnique" returntype="Numeric" hint="Saves a tag in the database only if it is unique">
 		<cfargument name="name" type="string" required="true" />
 		<cfset var loc = structNew() />
@@ -32,5 +31,11 @@
 			<cfset loc.tag.save() />
 		</cfif>
 		<cfreturn loc.tag.id />
+	</cffunction>
+	
+	<cffunction access="public" name="getTopTags" description="Pulls top tags">
+		<cfargument name="maxRows" type="numeric" default="5" />
+		<!--- for now just pull the last 5 in desc order --->
+		<cfreturn findAll(maxRows=arguments.maxRows, order="id desc") />
 	</cffunction>
 </cfcomponent>

@@ -53,17 +53,13 @@
 				</div>
 				<div id="global-navigation">#includePartial("/core/nav")#</div>
 				<div id="breadcrumbs">
-					<div id="feeds">#linkTo(controller="rss", text="Feeds")#</div>
+					<div id="feeds">#linkTo(route="rss", text=imageTag("rss_icon.png"))#</div>
 					<a href="/">Home</a> / <strong>Cookbook</strong></div>
 			</div>
 			<div id="contentWrapper" class="content">
 				<div id="content">
 					<div id="local-navigation">
-						<h1>Cooking Wheels</h1>
-						<p id="introduction" style="line-height: ."> Get'cha cook on! </p>
-						<ul>
-							<li>#linkTo(route="newrecipe", text="Submit a Recipe")#</li>
-						</ul>
+						#includePartial("/cooking/sidebar")#
 					</div>
 					<div class="has-local-navigation">
 						#contentForLayout()#
@@ -72,8 +68,7 @@
 			</div>
 			<div id="footer">
 				<div class="content">
-					<p id="hosting"> <a href="http://www.viviotech.net/">ColdFusion hosting</a> provided by<br />
-						<img alt="Vivio icon" height="16" src="/images/vivio_icon.png" width="16" /> Vivio Technologies. </p>
+					<p id="hosting">Follow us: <a href="http://twitter.com/cookingwheels">#imageTag("twitter_icon.png")#</a></p>
 					<p class="copyright"> &copy; #dateformat(now(), "yyyy")# ColdFusion on Wheels<br />
 						Wheels is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. </p>
 				</div>

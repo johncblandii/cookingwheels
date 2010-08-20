@@ -107,4 +107,8 @@
 		<cfset result.success = update() />
 		<cfreturn result />
 	</cffunction>
+	
+	<cffunction access="public" name="getRecentRecipes" hint="Returns the users latest recipes">
+		<cfreturn super.recipes(maxRows=5) />
+	</cffunction>
 </cfcomponent>

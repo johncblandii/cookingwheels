@@ -1,2 +1,7 @@
-﻿<h1>Welcome</h1>
-<p>Thank you for coming. Enjoy and learn.</p>
+﻿<h1>Welcome to Cooking Wheels!</h1>
+<p id="introduction">Enjoy, learn, and share.</p>
+
+<h2>Latest Recipes</h2>
+<cfoutput>
+	#includePartial(partial="/recipes/recipes", $recipes=$recipes)#
+</cfoutput>

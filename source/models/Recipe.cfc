@@ -45,4 +45,8 @@
 		<cfset var result = model("recipeTag").findAllByTagID(value=arguments.tagid, include="recipe") />
 		<cfreturn result />
 	</cffunction>
+	
+	<cffunction access="public" name="getHomepageRecipes" hint="Pulls recipes specific to the homepage">
+		<cfreturn findAll(maxRows=5) />
+	</cffunction>
 </cfcomponent>

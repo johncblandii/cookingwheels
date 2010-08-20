@@ -6,5 +6,6 @@
 
 <!--- PUBLIC METHODS --->	
 	<cffunction access="public" name="index" hint="Homepage">
+		<cfset $recipes = model("recipe").getHomepageRecipes() />
 	</cffunction>
 </cfcomponent>
