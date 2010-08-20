@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+ul.taglist{
+	margin:0;
+	padding:0;
+}
+	ul.taglist li{
+		list-style-type:none;
+		float: left;
+		padding:5px;
+	}
+	
+#feeds a{
+	margin:0 5px 0 5px;
+	padding:0;
+}

@@ -7,6 +7,7 @@
 		<link rel="shortcut icon" type="image/x-icon" href="/images/wheels-icon-16x16.png" />
 		<link href="/stylesheets/base.css" media="all" rel="stylesheet" type="text/css" />
 		<link href="/stylesheets/home.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="/stylesheets/cooking.css" media="all" rel="stylesheet" type="text/css" />
 		<link href="/stylesheets/print.css" media="print" rel="stylesheet" type="text/css" />
 		<!--[if IE]><link href="stylesheets/base_ie.css" media="all" rel="stylesheet" type="text/css" />
 					 <![endif]-->
@@ -55,7 +56,10 @@
 				</div>
 				<div id="global-navigation">#includePartial("/cooking/nav")#</div>
 				<div id="breadcrumbs">
-					<div id="feeds">#linkTo(route="rss", text=imageTag("rss_icon.png"))#</div>
+					<div id="feeds">
+						#linkTo(route="rss", text=imageTag("rss_icon.png"))#
+						<a href="http://twitter.com/cookingwheels" target="_blank">#imageTag("twitter_icon.png")#</a>
+					</div>
 					<a href="/">Home</a> / <strong>Cookbook</strong></div>
 			</div>
 			<div id="contentWrapper" class="content">
@@ -70,7 +74,6 @@
 			</div>
 			<div id="footer">
 				<div class="content">
-					<p id="hosting">Follow us: <a href="http://twitter.com/cookingwheels">#imageTag("twitter_icon.png")#</a></p>
 					<p class="copyright"> &copy; #dateformat(now(), "yyyy")# ColdFusion on Wheels<br />
 						Wheels is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. </p>
 				</div>
