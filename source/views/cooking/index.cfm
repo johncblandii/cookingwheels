@@ -1,5 +1,5 @@
-﻿<h1>Welcome to Cooking Wheels!</h1>
-<p id="introduction">Enjoy, learn, and share.</p>
+﻿<h1>Welcome!</h1>
+<p id="introduction">Enjoy, learn, and <strike>share</strike> cook!</p>
 
 <h2>Latest Recipes</h2>
 <cfoutput>
