@@ -74,8 +74,11 @@
 			</div>
 			<div id="footer">
 				<div class="content">
-					<p class="copyright"> &copy; #dateformat(now(), "yyyy")# ColdFusion on Wheels<br />
-						Wheels is licensed under the <a href="http://www.apache.org/licenses/LICENSE-2.0">Apache License, Version 2.0</a>. </p>
+					<p class="copyright">
+						Created by <a href="http://johncblandii.com" target="_blank">John C. Bland II</a>.
+						<br />
+						Source code is <a href="http://github.com/johncblandii/cookingwheels" target="_blank">available for download</a>.
+					</p>
 				</div>
 			</div>
 		</div>
