@@ -4,6 +4,7 @@ The use of some specific routes here is to circumvent having to create multiple 
 --->
 
 <!--- RSS --->
+	<cfset addRoute(name="tagrss", pattern="rss/tag/[slug]", controller="rss", action="tag") />
 	<cfset addRoute(name="userrss", pattern="rss/user/[userid]/[text]", controller="rss", action="user") />
 	<cfset addRoute(name="userrss", pattern="rss/user/[userid]", controller="rss", action="user") />
 	<cfset addRoute(name="rss", pattern="rss", controller="rss", action="index") />

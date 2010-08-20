@@ -42,8 +42,10 @@
 <!--- PUBLIC METHODS --->
 	<cffunction access="public" name="findAllByTagID" hint="Finds all recipes by tag id">
 		<cfargument name="tagid" type="numeric" required="true" />
-		<cfset var result = model("recipeTag").findAllByTagID(value=arguments.tagid, include="recipe") />
-		<cfreturn result />
+		<cfset arguments.value = arguments.tagid />
+		<cfset structdelete(arguments, "tagid") />
+		<cfset arguments.include = "recipe" />
+		<cfreturn model("recipeTag").findAllByTagID(argumentCollection=arguments) />
 	</cffunction>
 	
 	<cffunction access="public" name="getHomepageRecipes" hint="Pulls recipes specific to the homepage">

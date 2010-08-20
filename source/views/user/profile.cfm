@@ -7,7 +7,6 @@
 		<p id="introduction">Member since: #getFormattedDate($user.createdat)#</p>
 		
 		<h2>Recent Recipes</h2>
-		<hr />
 		<cfset $recipes = $user.getRecentRecipes() />
 		<cfif NOT isArray($recipes) OR (isArray($recipes) AND arraylen($recipes) EQ 0)>
 			Hrmm...no recipes. Someone is lurching and not submitting. Get'em!

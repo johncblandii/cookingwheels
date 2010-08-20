@@ -13,8 +13,7 @@
 		<cfset rssdata.description = "Recipes from CookingWheels.com" /> 
 		<cfset rssdata.version = "rss_2.0" />
 		<cfset rssdata.language = "en" />
-		<cfset rssdata.managingEditor = "John C. Bland II" />
-		<cfset rssdata.webmaster = "John C. Bland II" />
+		<cfset rssdata.webmaster = "John C. Bland II (http://www.johncblandii.com)" />
 		<cfset rssdata.pubDate = now() />
 		<cfset rssdata.lastBuildDate = now() />
 		<cfset rssdata.ttl = 60 />
@@ -30,6 +29,9 @@
 		<cfset var rssdata = getCoreRSSData() />
 		<cfif isArray(arguments.recipes)>
 			<cfloop array="#arguments.recipes#" index="recipe">
+				<cfif NOT isDefined("recipe.user")>
+					<cfset recipe.user = recipe.user() />
+				</cfif>
 				<cfset rssdata.item[i] = StructNew() />
 				<cfset rssdata.item[i].title = recipe.title />
 				<cfset rssdata.item[i].author = recipe.user.getDisplayName() />
@@ -55,5 +57,15 @@
 	<cffunction access="public" name="user" hint="Feeds by user">
 		<cfparam name="params.userid" type="numeric" default="-1" /><!--- set an invalid user id so it returns nothing --->
 		<cfset renderRSS(model("recipe").findAllByUserID(value=params.userid, include="user", order="createdat DESC", maxRows="20")) />
+	</cffunction>
+	
+	<cffunction access="public" name="tag" hint="Feeds by user">
+		<cfparam name="params.slug" type="string" default="n/a" /><!--- set an invalid user id so it returns nothing --->
+		<cfset var tag = model("tag").findOneBySlug(value=params.slug) />
+		<cfset var recipes = "" />
+		<cfif isObject(tag)>
+			<cfset recipes = tag.getRecipes(include="user", order="createdat DESC", maxRows="20") />
+		</cfif>
+		<cfset renderRSS(recipes) />
 	</cffunction>
 </cfcomponent>
