@@ -9,7 +9,7 @@
 		<h2>Recent Recipes</h2>
 		<cfset $recipes = $user.getRecentRecipes() />
 		<cfif NOT isArray($recipes) OR (isArray($recipes) AND arraylen($recipes) EQ 0)>
-			Hrmm...no recipes. Someone is lurching and not submitting. Get'em!
+			Hrmm...no recipes. Someone is lunching and not cooking. Get'em!
 		<cfelse>
 			<cfloop array="#$recipes#" index="recipe">
 				#includePartial(partial="/recipes/recipesimple", $recipe=recipe)#

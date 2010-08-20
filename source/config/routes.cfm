@@ -16,6 +16,7 @@ The use of some specific routes here is to circumvent having to create multiple 
 	<cfset addRoute(name="userprofile", pattern="user/[userid]/[text]", controller="user", action="profile") />
 	<cfset addRoute(name="userprofile", pattern="user/[userid]", controller="user", action="profile") />
 	<cfset addRoute(name="user", pattern="user", controller="user", action="index") />
+	<cfset addRoute(name="users", pattern="users", controller="user", action="index") />
 
 <!--- TAG --->
 	<cfset addRoute(name="tagrecipes", pattern="tag/[slug]/recipes", controller="tags", action="recipes") />

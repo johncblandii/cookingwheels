@@ -6,6 +6,7 @@
 
 <!--- PUBLIC METHODS --->	
 	<cffunction access="public" name="index" hint="Defalt">
+		<cfset $users = model('user').findAll(order="username ASC") />
 	</cffunction>
 	
 	<cffunction access="public" name="signup" hint="Registers a user for the site">

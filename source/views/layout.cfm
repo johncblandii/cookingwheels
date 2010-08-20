@@ -26,7 +26,7 @@
 		<div id="wrapper">
 			<div id="header">
 				<div id="logo"> <a class="image" href="/" title="Home"><img alt="ColdFusion on Wheels" height="121" src="/images/cfwheels-logo.png" width="93" /></a> </div>
-				<div id="tagline"> An open source <abbr title="ColdFusion Markup Language">CFML</abbr> framework<br />inspired by Ruby on Rails. </div>
+				<div id="tagline"> An open source <abbr title="ColdFusion on Wheels">CFWheels</abbr> site<br />for the community. </div>
 				<div id="utility">
 					<ul class="inline">
 						<li class="first"> <strong>Welcome, <cfif isLoggedIn()>#linkTo(route="userprofile", userid=session.user.id, text=session.user.getDisplayName())#<cfelse>guest</cfif>!</strong> </li>
@@ -36,6 +36,7 @@
 							<li>#linkTo(controller="user", action="signup", text="Sign Up")#</li>
 							<li>#linkTo(controller="user", action="signin", text="Sign In")#</li>
 						</cfif>
+						<!---
 						<li class="first">
 							<div id="site-search">
 								#startFormTag(id="cse-search-box", method="get", controller="search")#
@@ -49,9 +50,10 @@
 								#endFormTag()#
 							</div>
 						</li>
+						--->
 					</ul>
 				</div>
-				<div id="global-navigation">#includePartial("/core/nav")#</div>
+				<div id="global-navigation">#includePartial("/cooking/nav")#</div>
 				<div id="breadcrumbs">
 					<div id="feeds">#linkTo(route="rss", text=imageTag("rss_icon.png"))#</div>
 					<a href="/">Home</a> / <strong>Cookbook</strong></div>
