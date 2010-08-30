@@ -4,8 +4,13 @@
 		<p id="introduction">Where's Waldo?</p>
 		<p>We have no idea but the user you requested doesn't exist.</p>
 	<cfelse>
-		<h1 class="withcredits">#gravatarTag(rating="g", email=$user.emailaddress, size="60", default="mm")# #$user.getDisplayName()# <a href="#urlFor(route="userrss", userid=$user.id, text=$user.getDisplayName())#">#imageTag("icon_rss.png")#</a> </h1>
-		<p class="credits">Member since: #getFormattedDate($user.createdat)#</p>
+		<h1 class="withcredits">#$user.getProfileImage()# #$user.getDisplayName()# <a href="#urlFor(route="userrss", userid=$user.id, text=$user.getDisplayName())#">#imageTag("icon_rss.png")#</a> </h1>
+		<p class="credits">
+			<cfif isLoggedIn() AND session.user.id EQ $user.id>
+				#linkTo(route="editprofile", userid=$user.id, key="edit", text="Edit")# | 
+			</cfif>
+			Member since: #getFormattedDate($user.createdat)#
+		</p>
 		<cfif len(trim($user.siteurl)) GT 0>
 			<h3>Site</h3>
 			<p>#autoLink($user.siteurl)#</p>

@@ -5,7 +5,9 @@
 	#includePartial(title="Last 5 Tags", partial="/cooking/tags", $tags=$latesttags)#
 </cfif>
 --->
-<br />
+
+<h2>Twitter Feed</h2>
+
 <script>
 new TWTR.Widget({
   version: 2,

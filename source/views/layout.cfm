@@ -1,8 +1,9 @@
+<cfparam name="pagetitle" type="string" default="ColdFusion On Wheels Cookbook">
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Cooking Wheels | ColdFusion On Wheels Cookbook</title>
+		<title><cfoutput>#pagetitle#</cfoutput> | Cooking Wheels</title>
 		<link rel="alternate" type="application/rss+xml" title="ColdFusion on Wheels Cookbook" href="/rss" />
 		<link href="/stylesheets/reset.css" rel="stylesheet" type="text/css" />
 		<link href="/stylesheets/cooking.css" rel="stylesheet" type="text/css" />
@@ -13,7 +14,7 @@
 		<![endif]-->
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
 		<script type="text/javascript" src="http://cdn.jquerytools.org/1.1.1/jquery.tools.min.js"></script>
-		<script type="text/javascript" src="http://platform.twitter.com/anywhere.js?id=QPpFbBgDWaGzm6sAfm2owv=1"></script>
+		<script type="text/javascript" src="http://platform.twitter.com/anywhere.js?id=QPpFbBgDWaGzm6sAfm2ow&v=1"></script>
 		<script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
 		<script type="text/javascript" src="http://widgets.twimg.com/j/2/widget.js"></script>
 		<script type="text/javascript" src="/javascripts/tiny_mce/jquery.tinymce.js"></script>
@@ -55,7 +56,9 @@
 						<li class="icon twitter"><a href="http://twitter.com/cookingwheels">Twitter</a></li>
 						<li class="icon rss"><a href="/rss">RSS Feed</a></li>
 					</ul>
+					<!---
 					<div class="tweetthis"><a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="cookingwheels"></a></div>
+					--->
 				</div>
 				<div class="block">
 					<h3>Credits</h3>
@@ -75,17 +78,5 @@
 		</div>
 		#googleAnalyticsTag()#
 	</cfoutput>
-		<script>
-			twttr.anywhere(function(twitter){twitter.hovercards({expanded:true});});
-twttr.anywhere(function (T) {
-
-    T("#signin").tweetBox({
-      height: 100,
-      width: 400,
-      defaultContent: "<YOUR DEFAULT TWEETBOX CONTENT HERE>"
-    });
-
-  });
-		</script>
 	</body>
 </html>

@@ -11,7 +11,7 @@
 	
 <!--- PRIVATE METHODS --->
 	<cffunction access="private" name="$initializeProperties" description="Initializes global properties for all controllers">
-		<cfset $latesttags = model("tag").getTopTags() />
+		<!---<cfset $latesttags = model("tag").getTopTags() />--->
 	</cffunction>
 
 	<cffunction access="private" name="$authorize" description="Authorizes the users access to a specific portion of the site; redirects if fails">
@@ -19,6 +19,11 @@
 			<cfset session.redirectParams = structCopy(params) />
 			<cfset redirectTo(route="signin") />
 		</cfif>
+	</cffunction>
+	
+	<cffunction access="private" name="$getSetting" hint="Returns the setting from the database">
+		<cfargument name="keyname" type="string" required="true" />
+		<cfreturn model("setting").getSettingValue(arguments.keyname) />
 	</cffunction>
 	
 	<cffunction access="private" name="$doDetailPage" hint="Manages CRUD interaction">

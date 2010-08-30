@@ -4,6 +4,7 @@
 <cfoutput>
 	<h1 class="withcredits">#$recipe.title#</h1>
 	<p class="credits">
+		<cfif isLoggedIn() AND $recipe.userid EQ session.user.id>#linkTo(route="managerecipe", key="edit", recipeid=$recipe.id, text="Edit")# | </cfif>
 		#getFormattedDate($recipe.getLatestDate())# by #linkTo(route="userprofile", userid=$recipe.userid, text=$recipe.user.getDisplayName())#
 	</p>
 	<br />
@@ -12,7 +13,7 @@
 	<h3>Solution</h3>
 	<p>#$recipe.solution#</p>
 	<h3>Details</h3>
-	<p>#paragraphFormat($recipe.details)#</p>
+	<p>#$recipe.details#</p>
 	
 	<h3>Tagged</h3>
 	<p>

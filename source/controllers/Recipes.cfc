@@ -11,10 +11,12 @@
 	</cffunction>
 	
 	<cffunction access="public" name="recent" hint="Shows recent entries">
+		<cfset pagetitle = "Recent Recipes" />
 		<cfset $recipes = model("recipe").findAll(maxRows=10, include="user", order="createdat DESC") />
 	</cffunction>
 	
 	<cffunction access="public" name="top10" hint="Shows the top 10 entries by rating">
+		<cfset pagetitle = "Top 10 Recipes" />
 	</cffunction>
 	
 	<cffunction access="public" name="recipe" hint="Shows one specific recipe entry">
@@ -27,6 +29,8 @@
 				<cfset redirectTo(argumentCollection=params) /><!--- self-redirect --->
 			</cfif>
 		</cfif>
+		
+		<cfset pagetitle = $recipe.title />
 	</cffunction>
 	
 	<cffunction access="public" name="manage" hint="Manages one specific recipe entry">
@@ -34,6 +38,9 @@
 		<cfset redirect.route = "recipe" />
 		<cfset redirect.resultkeys = "recipeid,text" />
 		<cfset redirect.resultvalues = "id,title" />
+		<cfif isDefined("params.recipeid")>
+			<cfset params.value = params.recipeid />
+		</cfif>
 		<cfif NOT isDefined("params.key")>
 			<cfset params.key = "new" />
 		</cfif>

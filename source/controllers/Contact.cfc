@@ -6,5 +6,6 @@
 
 <!--- PUBLIC METHODS --->	
 	<cffunction access="public" name="index" hint="Default">
+		<cfset pagetitle = "Contact Us" />
 	</cffunction>
 </cfcomponent>

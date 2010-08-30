@@ -10,9 +10,12 @@ The use of some specific routes here is to circumvent having to create multiple 
 	<cfset addRoute(name="rss", pattern="rss", controller="rss", action="index") />
 	
 <!--- USER --->
+	<cfset addRoute(name="authtwitter", pattern="user/authtwitter", controller="user", action="authtwitter") />
+	<cfset addRoute(name="twitterauth", pattern="user/twitterauth", controller="user", action="twitterauth") />
 	<cfset addRoute(name="signout", pattern="user/signout", controller="user", action="signout") />
 	<cfset addRoute(name="signup", pattern="user/signup", controller="user", action="signup") />
 	<cfset addRoute(name="signin", pattern="user/signin", controller="user", action="signin") />
+	<cfset addRoute(name="editprofile", pattern="user/[userid]/m/[key]", controller="user", action="manage") />
 	<cfset addRoute(name="userprofile", pattern="user/[userid]/[text]", controller="user", action="profile") />
 	<cfset addRoute(name="userprofile", pattern="user/[userid]", controller="user", action="profile") />
 	<cfset addRoute(name="user", pattern="user", controller="user", action="index") />
@@ -27,8 +30,9 @@ The use of some specific routes here is to circumvent having to create multiple 
 	<cfset addRoute(name="newrecipe", pattern="recipe/submit/[key]/[value]", controller="recipes", action="manage") />
 	<cfset addRoute(name="newrecipe", pattern="recipe/submit/[key]", controller="recipes", action="manage") />
 	<cfset addRoute(name="newrecipe", pattern="recipe/submit", controller="recipes", action="manage", key="new") />
-	<cfset addRoute(name="editrecipe", pattern="recipe/[recipeid]/edit", controller="recipes", action="manage") />
+	<cfset addRoute(name="managerecipe", pattern="recipe/[recipeid]/m/[key]", controller="recipes", action="manage") />
 	<cfset addRoute(name="recipe", pattern="recipe/[recipeid]/[text]", controller="recipes", action="recipe") />
+	<cfset addRoute(name="recipe", pattern="recipe/[recipeid]", controller="recipes", action="recipe") />
 
 <!--- DEFAULT --->
 	<cfset addRoute(name="home", pattern="", controller="cooking", action="index") />
