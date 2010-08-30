@@ -6,7 +6,7 @@
 
 <!--- PUBLIC METHODS --->	
 	<cffunction access="public" name="index" hint="Defalt">
-		<cfset $users = model('user').findAll(order="username ASC") />
+		<cfset $users = model('user').findAll(order="lastname, firstname, username ASC") />
 	</cffunction>
 	
 	<cffunction access="public" name="signup" hint="Registers a user for the site">
@@ -56,5 +56,8 @@
 			<cfset params.userid = session.user.id />
 		</cfif>
 		<cfset $user = model("user").findOneById(params.userid) />
+	</cffunction>
+	
+	<cffunction access="public" name="twitterauth" hint="Callback from twitter">
 	</cffunction>
 </cfcomponent>

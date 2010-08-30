@@ -11,7 +11,7 @@ body:before{
 	height:100%;
 	float:left;
 	width:0;
-	margin-top:-32767px;
+	margin-top:-32767px;/
 }
 
 body{
@@ -42,10 +42,6 @@ h1{
 	font-weight:bold;
 	padding: 0 0 18px 0;
 }
-	
-	h1.withcredits{
-		padding:0;
-	}
 
 h2{
 	margin:0;
@@ -68,14 +64,6 @@ p{
 	margin:0;
 	padding:0 0 10px 0;
 }
-
-	.credits{
-		display:block;
-		margin:6px 0 15px 0;
-		padding:0;
-		font-size:11px;
-		color:#666;
-	}
 
 table{
 	width:100%;
@@ -103,30 +91,6 @@ ul{}
 		margin: 0;
 		padding: 2px;
 	}
-
-/* FORM ELEMENTS */
-label{
-	font-size:16px;
-	font-weight:bold;
-	display:block;
-	padding: 10px 0 10px 0;
-}
-
-input[type="text"], input[type="password"], input[type="file"]{
-	width: 60%;
-	font-size:17px;
-	height:20px;
-}
-
-input[type="submit"]{
-	margin: 15px 0 15px 0;
-}
-
-textarea{
-	width:80%;
-	height:10em;
-	font-size:17px;
-}
 
 /* CUSTOM GOODIES */
 .wrapper{
@@ -208,33 +172,10 @@ textarea{
 		}
 		
 			.left .content{
-				padding:0 0 40px 0;
+				padding:0;
 				margin:0;
 			}
 			
-				.left .content ul.taglist{}
-				
-					.left .content ul.taglist li{
-						float:left;
-						display:block;
-						padding: 0 5px 15px 0;
-					}
-					
-				.left .content ul.userlist{}
-				
-					.left .content ul.userlist li{
-						height: 70px;
-						display:block;
-						margin: 0 5px 15px 0;
-						border-bottom: 1px solid #666;
-					}
-					
-						.left .content ul.userlist li img{
-							float:left;
-							display:block;
-							padding: 0 15px 0 0;
-						}
-				
 				.left .content ul.recipelist{}
 				
 					.left .content ul.recipelist li{
@@ -265,11 +206,7 @@ textarea{
 							font-size:11px;
 							color:#666;
 						}
-
-			.left .comments{
-				padding: 15px 0 15px 0;
-			}
-
+			
 		.right{
 			width:265px;
 			float:right;
@@ -306,15 +243,6 @@ textarea{
 		}
 
 /* MISC */
-code{
-	display:block;
-	background-color: #efefef;
-	border: 1px solid #333;
-	padding: 15px;
-	color:#000;
-	font: 13px "Courier New", Courier, monospace;
-}
-
 .submitrecipe{
 	background:url(../images/submitrecipebutton.png) top left no-repeat;
 	display:block;
@@ -348,30 +276,19 @@ code{
 		background: url(../images/icon_rss.png) top left no-repeat;
 	}
 	
-.tweetthis{
-	margin: 20px 0 0 0;
-	padding: 5px 0 0 0;
-	border-top:1px solid #999;
-}
-	
 /** General Classes **/
 .field-with-errors input, .field-with-errors textarea, .field-with-errors select{
 	border:1px solid #B10803;
 }
 
-.error{
-	color: #333;
-	background-color: #efefef;
-	border: 1px solid #999;
+.error-messages{
+	color: #fff;
+	background-color: #666;
+	border: 2px solid #333;
 	padding: 10px;
 	list-style: none;
 	line-height: 150%;
 	margin: 5px 0 20px 0;
-}
-
-.required{
-	color: #ff0000;
-	font-size:11px;
 }
 
 .paddles{

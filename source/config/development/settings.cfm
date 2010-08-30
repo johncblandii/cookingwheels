@@ -1,1 +1,1 @@
-<cfset set(dataSourceName="cookingwheels_dev") />
+<cfset set(dataSourceName="cookingwheels") />

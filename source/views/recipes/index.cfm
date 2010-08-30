@@ -1,11 +1,8 @@
 ﻿<cfoutput>
-<div id="blog">
-	<h1>Recipes</h1>
-	<cfif isarray($recipes) AND arraylen($recipes) GT 0>
-		<p id="introduction">There's always room for more!</p>
-		#includePartial(partial="recipes", $recipes=$recipes)#
-	<cfelse>
-		<p id="introduction">Get in the game! #linkTo(action="manage", text="Start cooking")#.</p>
-	</cfif>
-</div>
+<h1>Recipes</h1>
+<cfif isDefined("$recipes") AND isarray($recipes) AND arraylen($recipes) GT 0>
+	#includePartial(partial="recipes", $recipes=$recipes)#
+<cfelse>
+	<p>Get in the game! #linkTo(action="manage", text="Start cooking")#.</p>
+</cfif>
 </cfoutput>

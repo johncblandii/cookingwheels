@@ -1,5 +1,5 @@
 ﻿<cfoutput>
-	<ul id="nav">
+	<ul class="navigation">
 		<li>#linkTo(route="home", text="Home")#</li>
 		<li>#linkTo(controller="recipes", text="Recipes")#</li>
 		<li>#linkTo(controller="tags", text="Tags")#</li>

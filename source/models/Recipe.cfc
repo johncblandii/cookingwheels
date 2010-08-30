@@ -36,7 +36,7 @@
 		</cfif>
 		<cfif isDefined("this.details")>
 			<cfset this.details = htmlCodeFormat(this.details) />
-			<cfset this.details = replaceNoCase(this.details, "[code]", "<code class='block'>", "all") />
+			<cfset this.details = replaceNoCase(this.details, "[code]", "<code>", "all") />
 			<cfset this.details = replaceNoCase(this.details, "[/code]", "</code>", "all") />
 		</cfif>
 	</cffunction>
@@ -60,6 +60,6 @@
 	</cffunction>
 	
 	<cffunction access="public" name="getHomepageRecipes" hint="Pulls recipes specific to the homepage">
-		<cfreturn findAll(maxRows=5) />
+		<cfreturn findAll(maxRows=5, order="createdat DESC") />
 	</cffunction>
 </cfcomponent>

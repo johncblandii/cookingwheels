@@ -2,6 +2,10 @@
 <cfset set(URLRewriting="On")>
 
 <!--- FUNCTIONS DEFAULTS --->
+	<!--- Google Analytics Plugin --->
+	<cfset set(google.analytics.trackerId="UA-7157770-2") />
+	
+	<!--- Framework --->
 	<cfset set(functionName="findAll", perPage=20, returnas="object") />
 	<cfset set(functionName="mailTo", encode=true) />
 	

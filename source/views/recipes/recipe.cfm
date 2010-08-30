@@ -2,7 +2,7 @@
 	<cfif isObject($recipe)>
 		#includePartial(partial="recipe", $recipe=$recipe)#
 	<cfelse>
-		<h1>Recipe Not Found</h1>
-		<p>This one does not exist but it can: #linkTo(route="newrecipe", text="start cooking")#!</p>
+		<h1>Missing Recipe</h1>
+		<p>This recipe does not exist. #linkTo(route="newrecipe", text="Start cooking")# and submit it!</p>
 	</cfif>
 </cfoutput>

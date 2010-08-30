@@ -10,8 +10,10 @@
 		<!--- VALIDATIONS --->
 			<cfset validatesPresenceOf(properties="password") />
 			<cfset validatesUniquenessOf(properties="username", allowBlank=false, minimum=5, maximum=25) />
-			<cfset validatesUniquenessOf(properties="emailaddress", allowBlank=false, minimum=5, maximum=140) />
-			<cfset validatesFormatOf(properties="emailaddress", format="email", message="This Email Address is already registered.") />
+			<cfset validatesUniquenessOf(properties="emailaddress") />
+			<cfset validatesFormatOf(properties="emailaddress", allowBlank=false, minimum=5, maximum=140, format="email", message="This Email Address is already registered.") />
+			<cfset validatesFormatOf(properties="siteurl", format="url", allowblank="true", message="The site url must be a valid url.") />
+			<cfset validatesFormatOf(properties="facebookurl", format="url", allowblank="true", message="The Facebook url must be a valid url.") />
 			<cfset validatesConfirmationOf(property="password") />
 		
 		<!--- CALLBACKS --->
@@ -30,6 +32,15 @@
 	
 	<cffunction access="private" name="$beforeCreate" hint="Callback to process the model before creating an entry">
 		<cfset $saltPassword() />
+		<cfif isDefined("this.siteurl") AND trim(this.siteurl) DOES NOT CONTAIN "http://">
+			<cfset this.siteurl = "http://"&trim(this.siteurl) />
+		</cfif>
+		<cfif isDefined("this.facebookurl") AND trim(this.facebookurl) DOES NOT CONTAIN "http://">
+			<cfset this.facebookurl = "http://"&trim(this.facebookurl) />
+		</cfif>
+		<cfif isDefined("this.twitterusername")>
+			<cfset replace(this.twitterusername, "@", "", "all") />
+		</cfif>
 	</cffunction>
 	
 	<cffunction access="private" name="$beforeUpdate" hint="Callback to process the model before updating an entry">
