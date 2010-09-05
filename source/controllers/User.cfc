@@ -86,9 +86,12 @@
 	
 	<cffunction access="public" name="authtwitter" hint="Callback from twitter">
 		<cfset var loc = StructNew() />
-		<cfset var loc.twitter = application.javaloader.create("twitter4j.Twitter").init() />
-		<cfset loc.twitter.setOAuthConsumer($getSetting("twitter.consumerkey"), $getSetting("twitter.consumersecret")) />
-		<cfset var loc.requestToken = loc.twitter.getOAuthRequestToken()>
+		<cftry>
+			<cfset application.twitter.setOAuthConsumer($getSetting("twitter.consumerkey"), $getSetting("twitter.consumersecret")) />
+		<cfcatch type="any">
+		</cfcatch>
+		</cftry>
+		<cfset var loc.requestToken = application.twitter.getOAuthRequestToken()>
 		<cfif NOT isDefined("session.twitter")>
 			<cfset session.twitter = StructNew() />
 		</cfif>
@@ -100,18 +103,16 @@
 	<cffunction access="public" name="twitterauth" hint="Callback from twitter">
 		<cfset var loc = StructNew() />
 		<cftry>
-			<cfset loc.twitter = application.javaloader.create("twitter4j.Twitter").init() />
-			<cfset loc.twitter.setOAuthConsumer($getSetting("twitter.consumerkey"), $getSetting("twitter.consumersecret")) />
-			<cfset loc.accessToken = loc.twitter.getOAuthAccessToken(session.twitter.oAuthRequestToken, session.twitter.oAuthRequestTokenSecret)>
+			<cfset loc.accessToken = application.twitter.getOAuthAccessToken(session.twitter.oAuthRequestToken, session.twitter.oAuthRequestTokenSecret)>
 			<!--- register the user --->
 			<cfset loc.userprops = StructNew() />
 			<cfset loc.userprops.oauthtoken = loc.accessToken.getToken() />
 			<cfset loc.userprops.oauthsecret = loc.accessToken.getTokenSecret() />
 			
-			<cfset loc.twitter.setOAuthAccessToken(loc.userprops.oauthtoken,loc.userprops.oauthsecret)>
+			<cfset application.twitter.setOAuthAccessToken(loc.userprops.oauthtoken,loc.userprops.oauthsecret)>
 			
 			<cfset loc.userprops.username = loc.userprops.twitterusername = loc.accessToken.getScreenName() />
-			<cfset loc.userinfo = loc.twitter.showUser(loc.userprops.username) />
+			<cfset loc.userinfo = application.twitter.showUser(loc.userprops.username) />
 			
 			<cfset loc.userprops.about = loc.userinfo.getDescription() />
 			<cfset loc.userprops.profileimageurl = loc.userinfo.getProfileImageURL().toExternalForm() />
@@ -130,6 +131,7 @@
 			</cfif>
 		<cfcatch type="any">
 			<!--- playing catch --->
+			<cfdump var="#cfcatch#" abort="true" />
 		</cfcatch>
 		</cftry>
 		<cfset flash(error="Unable to authorize with Twitter.") />

@@ -34,7 +34,6 @@
 			<cfset $saltPassword() />
 		</cfif>
 		<cfset $sanitizeUrls() />
-		<cfset $sanitizeTextFields() />
 	</cffunction>
 	
 	<cffunction access="private" name="$sanitizeUrls" hint="Cleans up the user profile urls">
@@ -49,12 +48,6 @@
 		</cfif>
 	</cffunction>
 	
-	<cffunction access="private" name="$sanitizeTextFields" hint="Cleans up the user text fields">
-		<cfif isDefined("this.about")>
-			<cfset this.about = $sanitizeHtml(this.about) />
-		</cfif>
-	</cffunction>
-
 	<cffunction access="private" name="$saltPassword" hint="Takes the stored password and salts it then updates the password.">
 		<cfif isDefined("this.password")>
 			<cfset this.passwordsalt = getUniqueValue() />
