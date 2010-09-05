@@ -41,11 +41,7 @@ h1{
 	font: 31px "Trebuchet MS", Arial, Helvetica, sans-serif;
 	font-weight:bold;
 	padding: 0 0 18px 0;
-}
-	
-	h1.withcredits{
-		padding:0;
-	}
+}	
 
 h2{
 	margin:0;
@@ -225,8 +221,7 @@ textarea{
 					.left .content ul.userlist li{
 						height: 70px;
 						display:block;
-						margin: 0 5px 15px 0;
-						border-bottom: 1px solid #666;
+						padding: 10px;
 					}
 					
 						.left .content ul.userlist li img{
@@ -269,6 +264,21 @@ textarea{
 			.left .comments{
 				padding: 15px 0 15px 0;
 			}
+			
+				.left .comments .comment{
+					padding: 10px 10px 0 10px;
+				}
+				
+					.left .comments .comment .meta{
+						float: left;
+						padding: 0 10px 0 0;
+					}
+					
+					.left .comments .comment .content{
+						float: left;
+						width: 500px;
+						padding:0;
+					}
 
 		.right{
 			width:265px;
@@ -310,7 +320,8 @@ code{
 	display:block;
 	background-color: #efefef;
 	border: 1px solid #333;
-	padding: 15px;
+	padding: 0 15px 15px 15px;
+	margin:0;
 	color:#000;
 	font: 13px "Courier New", Courier, monospace;
 }
@@ -377,6 +388,14 @@ code{
 	font-size:11px;
 }
 
+.alternate{
+	background-color: #efefef;
+}
+
 .paddles{
 	clear:both;
+}
+
+.withcredits{
+	padding:0;
 }

@@ -118,9 +118,13 @@
 			
 			<cfset loc.user = model("user").findOneByUsername(loc.userprops.username)/>
 			<cfif NOT isObject(loc.user)>
+				<!--- Initiate a registration --->
 				<cfset session.twitteruserprops = loc.userprops />
 				<cfset redirectTo(action="signup") />
 			<cfelse>
+				<!--- Update the users profile image --->
+				<cfset loc.user.profileimageurl = loc.userprops.profileimageurl />
+				<cfset loc.user.save() />
 				<cfset session.user = loc.user />
 				<cfset redirectTo(route="userprofile", userid=session.user.id, text=session.user.getDisplayName()) />
 			</cfif>

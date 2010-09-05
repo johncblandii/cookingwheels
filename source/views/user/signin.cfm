@@ -1,12 +1,12 @@
 ﻿<cfoutput>
 	<h1 class="withcredits">Sign In</h1>
-	<p class="credits">Welcome back!</p>
+	<p class="credits">Authenticate directly or with Twitter.</p>
 	#errorMessagesFor("$user")#
 	
 	#outputFlash("error")#
 	
 	<div class="twitterconnect">
-		#linkTo(route="authtwitter", text="Twitter")#
+		#linkTo(route="authtwitter", text="<img src='http://twitter-badges.s3.amazonaws.com/t_logo-c.png' alt='Follow cookingwheels on Twitter'/>")#
 	</div>
 	
 	<h2>-or-</h2>

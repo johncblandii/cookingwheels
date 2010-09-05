@@ -18,8 +18,4 @@
 		</cfif>
 		<cfreturn arguments.url />
 	</cffunction>
-	
-	<cffunction access="private" name="sanitizeHtml" returntype="String" hint="Cleans up HTML in fields">
-		
-	</cffunction>
 </cfcomponent>

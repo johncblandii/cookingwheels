@@ -6,7 +6,7 @@
 		<h1>Edit Recipe</h1>
 	</cfif>
 	#errorMessagesFor("$data")#
-	#startFormTag()#
+	#startFormTag(argumentCollection=params)#
 		#textField(label="Title", objectname="$data", property="title")#
 		#textField(label="Problem", objectname="$data", property="problem")#
 		#textField(label="Solution", objectname="$data", property="solution")#
@@ -14,6 +14,8 @@
 		<p class="credits">Wrap code with [code][/code] for it to show up in a code block.</p>
 		#textField(label="Tags", objectname="$data", property="tags")#
 		<p class="credits">Separate tags with a space or comma. At least one tag is required.</p>
+		#textField(label="Documentation Url", objectname="$data", property="documentationurl")#
+		<p class="credits">This should be a url to the cfwheels docs page.</p>
 		#submitTag()#
 	#endFormTag()#
 </cfoutput>

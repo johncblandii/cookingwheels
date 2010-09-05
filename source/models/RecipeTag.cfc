@@ -5,10 +5,4 @@
 			<cfset belongsTo("recipe") />
 			<cfset belongsTo("tag") />
 	</cffunction>
-
-<!--- CALLBACKS --->
-
-<!--- PRIVATE METHODS --->
-
-<!--- PUBLIC METHODS --->
 </cfcomponent>

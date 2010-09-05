@@ -7,30 +7,29 @@
 --->
 
 <h2>Twitter Feed</h2>
-
 <script>
 new TWTR.Widget({
   version: 2,
   type: 'profile',
   rpp: 4,
   interval: 6000,
-  width: 'auto',
-  height: 250,
+  width: 250,
+  height: 300,
   theme: {
     shell: {
-      background: '##ffffff',
+      background: '##efefef',
       color: '##333333'
     },
     tweets: {
       background: '##ffffff',
       color: '##666666',
-      links: '##333333'
+      links: '##e60000'
     }
   },
   features: {
-    scrollbar: true,
+    scrollbar: false,
     loop: false,
-    live: true,
+    live: false,
     hashtags: true,
     timestamp: true,
     avatars: true,

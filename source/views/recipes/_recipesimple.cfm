@@ -4,8 +4,8 @@
 </cfif>
 <cfoutput>
 <li>
-	#linkTo(class="title", route="recipe", rel="bookmark", title="Permanent link to " & recipe.title, recipeid=recipe.id, text=recipe.title)#
-	<p class="credits">#dateformat(recipe.createdat, "MMMM dd, yyyy")# by #linkTo(route="userprofile", userid=recipe.user.id, text=recipe.user.getDisplayName())#</p>
-	<p>#recipe.problem#</p>
+	#linkTo(class="title", route="recipe", rel="bookmark", title="Permanent link to " & encodeOutput(recipe.title), recipeid=recipe.id, text=encodeOutput(recipe.title))#
+	<p class="credits">#getFormattedDate(recipe.createdat, "MMMM dd, yyyy")# by #linkTo(route="userprofile", userid=recipe.user.id, text=encodeOutput(recipe.user.getDisplayName()))#</p>
+	<p>#encodeOutput(recipe.problem)#</p>
 </li>
 </cfoutput>

@@ -27,14 +27,12 @@ Cooking Wheels was created by <a href="http://johncblandii.com">John C. Bland II
 
 <a name="3"></a> 
 <h3>2) Can I submit content?</h3> 
-<p> 
-	Yes! Please go to our #linkTo(route="newrecipe", text="submit")# form. Your recipe will be checked sometime soon after submission. It will most likely be edited. You will be credited for your submission. In general - problems and answers should be very atomic. This would be a bad entry: How do I build a CMS? This too: What is "good" ColdFusion coding? These are good entries: How do I display the current time? How do I prevent forms from being submitted twice?
-</p> 
+<p>Yes! Please go to our #linkTo(route="newrecipe", text="submit")# form. Your recipe will be checked sometime soon after submission. It will most likely be edited. You will be credited for your submission. In general - problems and answers should be very atomic. This would be a bad entry: How do I build a CMS? This too: What is "good" ColdFusion coding? These are good entries: How do I display the current time? How do I prevent forms from being submitted twice?</p> 
 <hr />
  
 <a name="4"></a> 
 <h3>4) Can I submit just a question?</h3> 
-<p>Please use the <a href="http://groups.google.com/group/cfwheels">CFWheels mailing list</a> to ask questions. Please use the cookbook as a place to provide tested solutions to problems. </p> 
+<p>Please use the <a href="http://groups.google.com/group/cfwheels">CFWheels mailing list</a> to ask questions. Please use the cookbook as a place to provide tested solutions to problems.</p> 
 <hr />
 
 <a name="5"></a>

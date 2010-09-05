@@ -14,6 +14,7 @@
 			<cfset validatesLengthOf(properties="solution", allowBlank=false, minimum=5, maximum=500) />
 			<cfset validatesLengthOf(properties="details", allowBlank=false, minimum=5) />
 			<cfset validatesLengthOf(properties="tags", allowBlank=false, minimum=2) />
+			<cfset validatesFormatOf(properties="documentationurl", format="url", allowblank="true", message="The documentation url must be a valid url.") />
 			
 		<!--- CALLBACKS --->
 			<cfset beforeSave("$beforeSave") />
@@ -28,29 +29,29 @@
 		<cfif isDefined("session.user.id")>
 			<cfset this.lasteditedbyuserid = session.user.id />
 		</cfif>
-		<cfif isDefined("this.problem")>
-			<cfset this.problem = htmlCodeFormat(this.problem) />
-		</cfif>
-		<cfif isDefined("this.solution")>
-			<cfset this.solution = htmlCodeFormat(this.solution) />
-		</cfif>
-		<cfif isDefined("this.details")>
-			<cfset this.details = htmlCodeFormat(this.details) />
-			<cfset this.details = replaceNoCase(this.details, "[code]", "<code>", "all") />
-			<cfset this.details = replaceNoCase(this.details, "[/code]", "</code>", "all") />
+		<!--- this should probably use regex :) --->
+		<cfif isDefined("documentationurl") AND (this.documentationurl DOES NOT CONTAIN "http://cfwheels.com" OR this.documentationurl DOES NOT CONTAIN "http://www.cfwheels.com")>
+			<cfset this.documentationurl = "" />
 		</cfif>
 	</cffunction>
 	
 	<cffunction access="private" name="$afterSave" hint="Callback to manage model after a save">
 		<!--- Takes the string 'this.tags' and saves them to the database --->
 		<cfset var loc = structNew() />
-		<cfset loc.tagidlist = "" />
-		<cfloop list="#this.tags#" index="tag" delimiters=" ,;">
-			<cfset model("recipetag").create(recipeid=this.id, tagid=model("tag").createUnique(trim(tag))) />
+		<cfset loc.tagidlist = this.tags />
+		<cfset loadTags() />
+		<cfloop list="#loc.tagidlist#" index="tag" delimiters=" ,;">
+			<cfif NOT listFind(this.tags, tag)>
+				<cfset model("recipetag").create(recipeid=this.id, tagid=model("tag").createUnique(trim(tag))) />
+			</cfif>
 		</cfloop>
 	</cffunction>
 
 <!--- PUBLIC METHODS --->
+	<cffunction name="isApproved" hint="Checks 'approvedat' column for a value">
+		<cfreturn isDefined("this.approvedat") AND len(this.approvedat) GT 0 />
+	</cffunction>
+	
 	<cffunction access="public" name="findAllByTagID" hint="Finds all recipes by tag id">
 		<cfargument name="tagid" type="numeric" required="true" />
 		<cfset arguments.value = arguments.tagid />
@@ -59,7 +60,34 @@
 		<cfreturn model("recipeTag").findAllByTagID(argumentCollection=arguments) />
 	</cffunction>
 	
+	<cffunction access="public" name="loadTags" hint="Pulls recipe tags and sets them to a custom 'tags' property">
+		<cfset var loc = structNew() />
+		<cfset this.tags = "" />
+		<cfif isDefined("this.id")>
+			<cfset loc.tags = model("recipeTag").findAllByRecipeID(value=this.id, include="tag") />
+			<cfif isArray(loc.tags)>
+				<cfloop array="#loc.tags#" index="rt">
+					<cfset this.tags = listAppend(this.tags, rt.tag.name) />
+				</cfloop>
+			</cfif>
+		</cfif>
+	</cffunction>
+	
 	<cffunction access="public" name="getHomepageRecipes" hint="Pulls recipes specific to the homepage">
 		<cfreturn findAll(maxRows=5, order="createdat DESC") />
+	</cffunction>
+	
+	<cffunction access="public" name="findAll" hint="Override to force only approved recipes to show up">
+		<cfargument name="forceApproved" required="false" type="boolean" default="true" />
+		<cfif isDefined("arguments.forceApproved") AND arguments.forceApproved>
+			<cfif NOT isDefined("arguments.where")>
+				<cfset arguments.where = "" />
+			<cfelse>
+				<cfset arguments.where = arguments.where & " AND " />
+			</cfif>
+			<cfset arguments.where = trim(arguments.where & " approvedat <= now()") />
+		</cfif>
+		<cfset StructDelete(arguments, "forceApproved") />
+		<cfreturn super.findAll(argumentCollection=arguments) />
 	</cffunction>
 </cfcomponent>

@@ -2,9 +2,9 @@
 // Version 2492
 // http://code.google.com/p/sequel-pro
 //
-// Host: cookingwheels.com (MySQL 5.0.77)
+// Host: dev.cookingwheels.com (MySQL 5.0.77)
 // Database: cookingwheels_dev
-// Generation Time: 2010-08-13 05:02:24 -0500
+// Generation Time: 2010-09-04 23:05:55 -0500
 // ************************************************************
 
 digraph "Database Structure" {
@@ -57,10 +57,12 @@ digraph "Database Structure" {
 			<TR><TD COLSPAN="3" PORT="createdat">createdat:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">DATETIME</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="updatedat">updatedat:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">DATETIME</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="deletedat">deletedat:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">DATETIME</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="approvedat">approvedat:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">DATETIME</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="title">title:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="problem">problem:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="solution">solution:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="details">details:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">TEXT</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="documentationlink">documentationlink:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			</TABLE>>
 		];
 	}
@@ -69,8 +71,20 @@ digraph "Database Structure" {
 		"recipetags" [ label=<
 			<TABLE BORDER="0" CELLSPACING="0" CELLBORDER="1">
 			<TR><TD COLSPAN="3" BGCOLOR="#DDDDDD">recipetags</TD></TR>
+			<TR><TD COLSPAN="3" PORT="id">id:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">INT</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="recipeid">recipeid:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">INT</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="tagid">tagid:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">INT</FONT></TD></TR>
+			</TABLE>>
+		];
+	}
+	subgraph "table_settings" {
+		node [ shape = "plaintext" ];
+		"settings" [ label=<
+			<TABLE BORDER="0" CELLSPACING="0" CELLBORDER="1">
+			<TR><TD COLSPAN="3" BGCOLOR="#DDDDDD">settings</TD></TR>
+			<TR><TD COLSPAN="3" PORT="id">id:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">INT</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="keyname">keyname:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="value">value:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			</TABLE>>
 		];
 	}
@@ -81,6 +95,7 @@ digraph "Database Structure" {
 			<TR><TD COLSPAN="3" BGCOLOR="#DDDDDD">tags</TD></TR>
 			<TR><TD COLSPAN="3" PORT="id">id:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">INT</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="name">name:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="slug">slug:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			</TABLE>>
 		];
 	}
@@ -99,11 +114,18 @@ digraph "Database Structure" {
 			<TR><TD COLSPAN="3" PORT="username">username:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="password">password:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="passwordsalt">passwordsalt:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="emailaddress">emailaddress:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="firstname">firstname:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="middleinitial">middleinitial:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="lastname">lastname:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			<TR><TD COLSPAN="3" PORT="suffix">suffix:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
-			<TR><TD COLSPAN="3" PORT="emailaddress">emailaddress:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="twitterusername">twitterusername:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="facebookurl">facebookurl:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="siteurl">siteurl:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="oauthtoken">oauthtoken:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="oauthsecret">oauthsecret:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="about">about:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">TEXT</FONT></TD></TR>
+			<TR><TD COLSPAN="3" PORT="profileimageurl">profileimageurl:<FONT FACE="Helvetica-Oblique" POINT-SIZE="10">VARCHAR</FONT></TD></TR>
 			</TABLE>>
 		];
 	}
@@ -123,9 +145,9 @@ comments:recipeid -> recipes:id ;
 comments:userid -> users:id ;
 reciperatings:recipeid -> recipes:id ;
 reciperatings:userid -> users:id ;
-recipes:lasteditedbyuserid -> users:id ;
 recipes:userid -> users:id ;
-recipetags:tagid -> tags:id ;
+recipes:lasteditedbyuserid -> users:id ;
 recipetags:recipeid -> recipes:id ;
+recipetags:tagid -> tags:id ;
 users:usertypeid -> usertypes:id ;
 }

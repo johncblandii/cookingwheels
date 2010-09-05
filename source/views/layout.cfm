@@ -40,6 +40,10 @@
 				<div class="left">
 					<div class="content">
 						#contentForLayout()#
+						
+						<div class="tweetthis">
+							<a href="http://twitter.com/share" class="twitter-share-button" data-count="horizontal" data-via="cookingwheels">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+						</div>
 					</div>
 				</div>
 				<div class="right">
@@ -56,12 +60,9 @@
 						<li class="icon twitter"><a href="http://twitter.com/cookingwheels">Twitter</a></li>
 						<li class="icon rss"><a href="/rss">RSS Feed</a></li>
 					</ul>
-					<!---
-					<div class="tweetthis"><a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="cookingwheels"></a></div>
-					--->
 				</div>
 				<div class="block">
-					<h3>Credits</h3>
+					<h3>Credits & Connect</h3>
 					<ul>
 						<li>Created by <a href="http://johncblandii.com">John C. Bland II</a></li>
 						<li>Designed by <a href="">Chris Peters</a></li>

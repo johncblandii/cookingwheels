@@ -4,7 +4,7 @@
 		<p id="introduction">Where's Waldo?</p>
 		<p>We have no idea but the user you requested doesn't exist.</p>
 	<cfelse>
-		<h1 class="withcredits">#$user.getProfileImage()# #$user.getDisplayName()# <a href="#urlFor(route="userrss", userid=$user.id, text=$user.getDisplayName())#">#imageTag("icon_rss.png")#</a> </h1>
+		<h1 class="withcredits">#$user.getProfileImage()# #encodeOutput($user.getDisplayName())# <a href="#urlFor(route="userrss", userid=$user.id, text=encodeOutput($user.getDisplayName()))#">#imageTag("icon_rss.png")#</a> </h1>
 		<p class="credits">
 			<cfif isLoggedIn() AND session.user.id EQ $user.id>
 				#linkTo(route="editprofile", userid=$user.id, key="edit", text="Edit")# | 
@@ -17,20 +17,25 @@
 		</cfif>
 		<cfif len(trim($user.twitterusername)) GT 0>
 			<h3>Twitter</h3> 
-			<p>@#$user.twitterusername#</p>
+			<p>#encodeOutput("@"&$user.twitterusername)#</p>
 		</cfif>
 		<cfif len(trim($user.facebookurl)) GT 0>
 			<h3>Facebook</h3>
-			<p>#$user.facebookurl#</p>
+			<p>#encodeOutput($user.facebookurl)#</p>
 		</cfif>
-		<h2>Recent Recipes</h2>
+		<cfif len(trim($user.about)) GT 0>
+			<h3>About</h3>
+			<p>#encodeOutput($user.about)#</p>
+		</cfif>
 		<cfset $recipes = $user.getRecentRecipes() />
-		<cfif NOT isArray($recipes) OR (isArray($recipes) AND arraylen($recipes) EQ 0)>
-			Hrmm...no recipes. Someone is a grubber and not a cooker.
-		<cfelse>
+		<cfif isArray($recipes) AND isArray($recipes) AND arraylen($recipes) GT 0>
+			<hr /><br />
+			<h3>Recent Recipes</h3>
+			<ul>
 			<cfloop array="#$recipes#" index="recipe">
 				#includePartial(partial="/recipes/recipesimple", $recipe=recipe)#
 			</cfloop>
+			</ul>
 		</cfif>
 	</cfif>
 </cfoutput>

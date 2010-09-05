@@ -34,6 +34,7 @@
 			<cfset $saltPassword() />
 		</cfif>
 		<cfset $sanitizeUrls() />
+		<cfset $sanitizeTextFields() />
 	</cffunction>
 	
 	<cffunction access="private" name="$sanitizeUrls" hint="Cleans up the user profile urls">
@@ -45,6 +46,12 @@
 		</cfif>
 		<cfif isDefined("this.twitterusername")>
 			<cfset replace(this.twitterusername, "@", "", "all") />
+		</cfif>
+	</cffunction>
+	
+	<cffunction access="private" name="$sanitizeTextFields" hint="Cleans up the user text fields">
+		<cfif isDefined("this.about")>
+			<cfset this.about = $sanitizeHtml(this.about) />
 		</cfif>
 	</cffunction>
 
@@ -129,5 +136,9 @@
 		<cfelseif isDefined("this.emailaddress")>
 			<cfreturn gravatarTag(rating="g", email=this.emailaddress, size="60", default="mm") />
 		</cfif>
+	</cffunction>
+	
+	<cffunction access="public" name="isTwitterUser" returntype="boolean" hint="Returns whether or not the user is a twitter or direct auth user.">
+		<cfreturn isDefined("this.oauthtoken") />
 	</cffunction>
 </cfcomponent>

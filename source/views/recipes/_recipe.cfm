@@ -2,18 +2,21 @@
 	<cfset $recipe = arguments.$recipe />
 </cfif>
 <cfoutput>
-	<h1 class="withcredits">#$recipe.title#</h1>
+	<cfif len($recipe.approvedat) EQ 0>
+		<div class="error">This recipe is not yet approved. Once it is approved, it will be available for public view.</div>
+	</cfif>
+	<h1 class="withcredits">#encodeOutput($recipe.title)#</h1>
 	<p class="credits">
 		<cfif isLoggedIn() AND $recipe.userid EQ session.user.id>#linkTo(route="managerecipe", key="edit", recipeid=$recipe.id, text="Edit")# | </cfif>
 		#getFormattedDate($recipe.getLatestDate())# by #linkTo(route="userprofile", userid=$recipe.userid, text=$recipe.user.getDisplayName())#
 	</p>
 	<br />
 	<h3>Problem</h3>
-	<p>#$recipe.problem#</p>
+	<p>#encodeOutput($recipe.problem)#</p>
 	<h3>Solution</h3>
-	<p>#$recipe.solution#</p>
+	<p>#encodeOutput($recipe.solution)#</p>
 	<h3>Details</h3>
-	<p>#$recipe.details#</p>
+	<p>#encodeOutput($recipe.details)#</p>
 	
 	<h3>Tagged</h3>
 	<p>

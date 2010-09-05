@@ -20,7 +20,13 @@
 	</cffunction>
 	
 	<cffunction access="public" name="recipe" hint="Shows one specific recipe entry">
-		<cfset $recipe = model("recipe").findOneByID(value=params.recipeid, include="user") />
+		<cfset var args = StructNew() />
+		<cfset args.value = params.recipeid />
+		<cfset args.include = "user" />
+		<cfif isLoggedIn()>
+			<cfset args.forceApproved = false />
+		</cfif>
+		<cfset $recipe = model("recipe").findOneByID(argumentCollection=args) />
 		<cfset $newcomment = model("comment").new() />
 		<cfif isPost() AND isDefined("params.$newcomment")>
 			<cfset params.$newcomment.recipeid = params.recipeid />
@@ -29,8 +35,14 @@
 				<cfset redirectTo(argumentCollection=params) /><!--- self-redirect --->
 			</cfif>
 		</cfif>
-		
-		<cfset pagetitle = $recipe.title />
+		<cfif isObject($recipe)>
+			<cfif NOT $recipe.isApproved() AND NOT isLoggedIn() OR
+					(isLoggedIn() AND $recipe.user.id NEQ session.user.id)>
+				<cfset $recipe = false />
+			<cfelse>
+				<cfset pagetitle = $recipe.title />
+			</cfif>
+		</cfif>
 	</cffunction>
 	
 	<cffunction access="public" name="manage" hint="Manages one specific recipe entry">
@@ -45,5 +57,12 @@
 			<cfset params.key = "new" />
 		</cfif>
 		<cfset $doDetailPage("recipe", redirect) />
+		
+		<cfif NOT $data.isNew()>
+			<cfif $data.userid NEQ session.user.id>
+				<cfset redirectTo(action="index") />
+			</cfif>
+			<cfset $data.loadTags() />
+		</cfif>
 	</cffunction>
 </cfcomponent>

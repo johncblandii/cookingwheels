@@ -7,7 +7,7 @@
 		<h3>Current Tags</h3>
 		<ul class="taglist">
 		<cfloop array="#$tags#" index="tag">
-			<li>#linkTo(route="tagrecipes", slug=tag.slug, text=tag.name)#</li> 
+			<li>#linkTo(route="tagrecipes", slug=tag.slug, text=encodeOutput(tag.name))#</li> 
 		</cfloop>
 		</ul>
 	<cfelse>

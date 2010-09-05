@@ -2,14 +2,20 @@
 <cfoutput>
 	<h1>Our Community</h1>
 	<ul class="userlist">
+	<cfset i = 0 />
 	<cfloop array="#$users#" index="user">
-		<li>
-			#gravatarTag(rating="g", email=user.emailaddress, size="60", default="mm")#
-			#linkTo(route="userprofile", userid=user.id, text=user.getDisplayName())#<br />
+		<cfset i = i + 1 />
+		<li class="#getAlternatingClass(i)#">
+			#user.getProfileImage()#
+			#linkTo(route="userprofile", userid=user.id, text=user.getDisplayName())#
+			<br />
 			<p class="credits">
-				Member Since: #getFormattedDate(user.createdat)#
+				Joined: #getFormattedDate(user.createdat)#
 				<br />
-				Total Recipes: #arraylen(user.recipes())#
+				<cfif len(user.twitterusername)>
+					#encodeOutput("@"&user.twitterusername)# | 
+				</cfif>
+				Recipes: #arraylen(user.recipes())#
 			</p>
 		</li>
 	</cfloop>
