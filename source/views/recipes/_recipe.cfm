@@ -24,6 +24,12 @@
 			#linkTo(route="tagrecipes", slug=recipetag.tag.slug, text=recipetag.tag.name)#
 		</cfloop>
 	</p>
+	
+	<cfif isDefined("$recipe.documentationlink")>
+		<h3>Documentation Url</h3>
+		<p>#autoLink($recipe.documentationlink)#</p>
+	</cfif>
+	
 	<hr />
 	#includePartial(partial="/recipes/comments", $comments=$recipe.comments(include='user'))#
 </cfoutput>

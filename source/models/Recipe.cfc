@@ -14,7 +14,7 @@
 			<cfset validatesLengthOf(properties="solution", allowBlank=false, minimum=5, maximum=500) />
 			<cfset validatesLengthOf(properties="details", allowBlank=false, minimum=5) />
 			<cfset validatesLengthOf(properties="tags", allowBlank=false, minimum=2) />
-			<cfset validatesFormatOf(properties="documentationurl", format="url", allowblank="true", message="The documentation url must be a valid url.") />
+			<cfset validatesFormatOf(properties="documentationlink", format="url", allowblank="true", message="The documentation url must be a valid url.") />
 			
 		<!--- CALLBACKS --->
 			<cfset beforeSave("$beforeSave") />
@@ -30,8 +30,8 @@
 			<cfset this.lasteditedbyuserid = session.user.id />
 		</cfif>
 		<!--- this should probably use regex :) --->
-		<cfif isDefined("documentationurl") AND (this.documentationurl DOES NOT CONTAIN "http://cfwheels.com" OR this.documentationurl DOES NOT CONTAIN "http://www.cfwheels.com")>
-			<cfset this.documentationurl = "" />
+		<cfif isDefined("documentationlink") AND (this.documentationlink DOES NOT CONTAIN "http://cfwheels.com" OR this.documentationlink DOES NOT CONTAIN "http://www.cfwheels.com")>
+			<cfset this.documentationlink = "" />
 		</cfif>
 	</cffunction>
 	

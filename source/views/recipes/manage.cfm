@@ -14,7 +14,7 @@
 		<p class="credits">Wrap code with [code][/code] for it to show up in a code block.</p>
 		#textField(label="Tags", objectname="$data", property="tags")#
 		<p class="credits">Separate tags with a space or comma. At least one tag is required.</p>
-		#textField(label="Documentation Url", objectname="$data", property="documentationurl")#
+		#textField(label="Documentation Url", objectname="$data", property="documentationlink")#
 		<p class="credits">This should be a url to the cfwheels docs page.</p>
 		#submitTag()#
 	#endFormTag()#

@@ -14,6 +14,7 @@
 		<cfif isdefined("session.twitteruserprops")>
 			<cfset $user = model("user").new(session.twitteruserprops) />
 			<cfset istwitter = true />
+			<cfset structDelete(session, "twitteruserprops") />
 		<cfelse>
 			<cfset $user = model("user").new() />
 			<cfset istwitter = false />
@@ -87,8 +88,10 @@
 	<cffunction access="public" name="authtwitter" hint="Callback from twitter">
 		<cfset var loc = StructNew() />
 		<cftry>
+			<cfset application.twitter = application.javaloader.create("twitter4j.Twitter").init() />
 			<cfset application.twitter.setOAuthConsumer($getSetting("twitter.consumerkey"), $getSetting("twitter.consumersecret")) />
 		<cfcatch type="any">
+			<cfdump var="#cfcatch#">
 		</cfcatch>
 		</cftry>
 		<cfset var loc.requestToken = application.twitter.getOAuthRequestToken()>
@@ -124,7 +127,12 @@
 				<cfset redirectTo(action="signup") />
 			<cfelse>
 				<!--- Update the users profile image --->
-				<cfset loc.user.profileimageurl = loc.userprops.profileimageurl />
+				<cfset loc.updateprops = structNew() />
+				<cfset loc.updateprops.about = loc.userprops.about />
+				<cfset loc.updateprops.profileimageurl = loc.userprops.profileimageurl />
+				<cfset loc.updateprops.oauthtoken = loc.userprops.oauthtoken />
+				<cfset loc.updateprops.oauthsecret = loc.userprops.oauthsecret />
+				<cfset loc.user.setProperties(loc.updateprops) />
 				<cfset loc.user.save() />
 				<cfset session.user = loc.user />
 				<cfset redirectTo(route="userprofile", userid=session.user.id, text=session.user.getDisplayName()) />
