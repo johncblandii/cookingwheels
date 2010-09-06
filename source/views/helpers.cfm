@@ -1,10 +1,14 @@
 <cffunction access="public" name="outputFlash" hint="Outputs a Wheels 'flash' message with the appropriate html wrapping">
-	<cfargument name="key" required="true" type="string" />
-	<cfif flashKeyExists(arguments.key)>
-		<cfoutput>
-		<div class="flash-message">#flash(arguments.key)#</div>
-		</cfoutput>
-	</cfif>
+	<cfargument name="keys" required="true" type="string" hint="A list of flash keys to output" />
+	<cfargument name="cssclass" type="string" default="error" />
+	<cfset var key = "" />
+	<cfloop list="#arguments.keys#" index="key">
+		<cfif flashKeyExists(key)>
+			<cfoutput>
+			<div class="#arguments.cssclass#">#flash(key)#</div>
+			</cfoutput>
+		</cfif>
+	</cfloop>
 </cffunction>
 
 <cffunction access="public" name="getFormattedDate" hint="Formats a date to the global date output">

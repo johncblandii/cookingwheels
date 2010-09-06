@@ -29,6 +29,17 @@
 				
 				<cfset structDelete(session, "twitteruserprops") />
 				
+				<cftry>
+					<cfset sendEmail(from=$getSetting("email.default"), 
+									 to=$user.emailaddress, 
+									 templates="/emailtemplates/registrationplain,/emailtemplates/registration", 
+									 subject=$getSetting("email.registration.subject"), 
+									 user=$user) />
+				<cfcatch type="any">
+					<!--- playing catch --->
+				</cfcatch>
+				</cftry>
+				
 				<cfset redirectTo(argumentCollection=paramargs) />
 			</cfif>
 		</cfif>
@@ -36,9 +47,8 @@
 	
 	<cffunction access="public" name="signin" hint="Signs a user into the site">
 		<cfset var paramargs = StructNew() />
-		<cfset $user = model("user").new() />
 		<cfif isPost() AND isDefined("params.$user")>
-			<cfset $user = $user.findOneByUsername(params.$user.username) />
+			<cfset $user = model("user").findOneByUsername(params.$user.username) />
 			<cfif isObject($user) AND $user.authenticate(params.$user.password)>
 				<cfset session.user = $user />
 				<cfif isDefined("session.redirectParams")>
@@ -50,7 +60,12 @@
 					<cfset paramargs.text = session.user.getDisplayName() />
 				</cfif>
 				<cfset redirectTo(argumentCollection=paramargs) />
+			<cfelse>
+				<cfset flashInsert(error="Invalid username and/or password.") />
 			</cfif>
+		</cfif>
+		<cfif NOT isDefined("$user") OR (isDefined("$user") AND NOT isObject($user))>
+			<cfset $user = model("user").new() />
 		</cfif>
 	</cffunction>
 	
@@ -58,6 +73,38 @@
 		<cfset StructDelete(session, "user") />
 		<cfset StructDelete(session, "twitteruserprops") />
 		<cfset redirectTo(route="home") />
+	</cffunction>
+	
+	<cffunction access="public" name="resetpassword" hint="Reset the users password">
+		<cfset var loc = structNew() />
+		<cfif isPost() AND isDefined("params.$user")>
+			<cfset $user = model("user").findOneByEmailAddressAndUsername(values="#params.$user.emailaddress#,#params.$user.username#") />
+			<cfif isObject($user)>
+				<cfset loc.result = $user.resetPassword() />
+				<cfif loc.result.success>
+					<cftry>
+						<cfset sendEmail(from=$getSetting("email.default"), 
+										 to=$user.emailaddress, 
+										 templates="/emailtemplates/passwordresetplain,/emailtemplates/passwordreset", 
+										 subject=$getSetting("email.passwordreset.subject"), 
+										 user=$user,
+										 password=loc.result.password) />
+					<cfcatch type="any">
+						<!--- playing catch --->
+					</cfcatch>
+					</cftry>
+					<cfset flashInsert(success="Your password was reset and emailed to "&$user.emailaddress&".") />
+					<cfset redirectTo(action="resetpassword") />
+				<cfelse>
+					<cfset flashInsert(error="We were unable to reset your password.") />
+				</cfif>
+			<cfelse>
+				<cfset flashInsert(error="We were unable to find a user.") />
+			</cfif>
+		</cfif>
+		<cfif NOT isDefined("$user") OR (isDefined("$user") AND NOT isObject($user))>
+			<cfset $user = model("user").new() />
+		</cfif>
 	</cffunction>
 	
 	<cffunction access="public" name="profile" hint="Shows a users profile">
@@ -139,10 +186,9 @@
 			</cfif>
 		<cfcatch type="any">
 			<!--- playing catch --->
-			<cfdump var="#cfcatch#" abort="true" />
 		</cfcatch>
 		</cftry>
-		<cfset flash(error="Unable to authorize with Twitter.") />
+		<cfset flashInsert(error="Unable to authorize with Twitter.") />
 		<cfset redirectTo(action="signin") />
 	</cffunction>
 </cfcomponent>

@@ -32,6 +32,17 @@
 			<cfset params.$newcomment.recipeid = params.recipeid />
 			<cfset $newcomment.setProperties(params.$newcomment) />
 			<cfif $newcomment.save()>
+				<cftry>
+					<cfset sendEmail(from=$getSetting("email.default"), 
+									 to=$user.emailaddress, 
+									 templates="/emailtemplates/newrecipeplain,/emailtemplates/newrecipe", 
+									 subject=$getSetting("email.recipe.new.subject"), 
+									 user=$user) />
+				<cfcatch type="any">
+					<!--- playing catch --->
+				</cfcatch>
+				</cftry>
+				
 				<cfset redirectTo(argumentCollection=params) /><!--- self-redirect --->
 			</cfif>
 		</cfif>

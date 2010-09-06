@@ -35,3 +35,5 @@
 <!--- MISC DEFAULTS --->
 	<cfset set(obfuscateUrls="true") />
 	<cfset set(reloadPassword="cookit") />
+	<cfset set(sendEmailOnError=true) />
+	<cfset set(errorEmailAddress="dev-team@cookingwheels.com") />

@@ -65,7 +65,7 @@
 					<h3>Credits & Connect</h3>
 					<ul>
 						<li>Created by <a href="http://johncblandii.com">John C. Bland II</a></li>
-						<li>Designed by <a href="">Chris Peters</a></li>
+						<li>Designed by <a href="http://www.clearcrystalmedia.com/pm/">Chris Peters</a></li>
 						<li>Inspired by <a href="http://coldfusioncookbook.com">ColdFusion Cookbook</a></li>
 					</ul>
 				</div>

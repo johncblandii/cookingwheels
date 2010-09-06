@@ -19,6 +19,7 @@
 		<!--- CALLBACKS --->
 			<cfset beforeCreate("$beforeCreate") />
 			<cfset beforeUpdate("$beforeUpdate") />
+			<cfset beforeSave("$beforeSave") />
 	</cffunction>
 
 <!--- PRIVATE METHODS --->
@@ -34,6 +35,12 @@
 			<cfset $saltPassword() />
 		</cfif>
 		<cfset $sanitizeUrls() />
+	</cffunction>
+	
+	<cffunction access="private" name="$beforeSave" hint="Callback to process the model before save">
+		<cfif NOT isDefined("this.password")>
+			<cfset $saltPassword() />
+		</cfif>
 	</cffunction>
 	
 	<cffunction access="private" name="$sanitizeUrls" hint="Cleans up the user profile urls">
@@ -112,7 +119,7 @@
 		<cfset var result = structNew() /> 
 		<cfset var props = structNew() />
 		<cfset props.ispasswordreset = "1" />
-		<cfset props.password = generatePassword() />
+		<cfset props.password = getUniqueValue() />
 		<cfset setProperties(props) />
 		<cfset result.password = props.password />
 		<cfset result.success = update() />
@@ -132,6 +139,6 @@
 	</cffunction>
 	
 	<cffunction access="public" name="isTwitterUser" returntype="boolean" hint="Returns whether or not the user is a twitter or direct auth user.">
-		<cfreturn isDefined("this.oauthtoken") />
+		<cfreturn isDefined("this.oauthtoken") AND len(this.oauthtoken) GT 0 />
 	</cffunction>
 </cfcomponent>
