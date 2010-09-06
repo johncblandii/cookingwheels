@@ -7,6 +7,6 @@
 	#startFormTag()#
 		#textField(label="Email Address", objectname="$user", property="emailaddress")#
 		#textField(label="Username", objectname="$user", property="username")#
-		#submitTag()#
+		#submitTag(value="Get Password!")#
 	#endFormTag()#
 </cfoutput>

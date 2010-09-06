@@ -1,7 +1,5 @@
-﻿<cfparam name="user" />
-<cfparam name="password" type="string" />
-<cfoutput>
-<p>#user.getDisplayName()#, Your password has been reset.  Your new password is now "#password#".</p>
+﻿<cfoutput>
+<p>#user.getDisplayName()#, Your password has been reset.  Your new password is now "#userpassword#".</p>
 
 <p>Sincerely,</p>
 

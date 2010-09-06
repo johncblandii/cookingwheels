@@ -33,11 +33,12 @@
 			<cfset $newcomment.setProperties(params.$newcomment) />
 			<cfif $newcomment.save()>
 				<cftry>
-					<cfset sendEmail(from=$getSetting("email.default"), 
+					<cfset sendEmail(from=$getSetting("email.from.default"), 
 									 to=$user.emailaddress, 
 									 templates="/emailtemplates/newrecipeplain,/emailtemplates/newrecipe", 
 									 subject=$getSetting("email.recipe.new.subject"), 
-									 user=$user) />
+									 user=$recipe.user,
+									 recipe=$recipe) />
 				<cfcatch type="any">
 					<!--- playing catch --->
 				</cfcatch>

@@ -37,3 +37,4 @@
 	<cfset set(reloadPassword="cookit") />
 	<cfset set(sendEmailOnError=true) />
 	<cfset set(errorEmailAddress="dev-team@cookingwheels.com") />
+	<cfset set(errorEmailServer="smtp.gmail.com") />

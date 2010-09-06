@@ -26,20 +26,15 @@
 				<cfset paramargs.route = "userprofile" />
 				<cfset paramargs.userid = session.user.id />
 				<cfset paramargs.text = session.user.getDisplayName() />
-				
 				<cfset structDelete(session, "twitteruserprops") />
-				
 				<cftry>
-					<cfset sendEmail(from=$getSetting("email.default"), 
+					<cfset sendEmail(from=$getSetting("email.from.default"), 
 									 to=$user.emailaddress, 
 									 templates="/emailtemplates/registrationplain,/emailtemplates/registration", 
 									 subject=$getSetting("email.registration.subject"), 
 									 user=$user) />
-				<cfcatch type="any">
-					<!--- playing catch --->
-				</cfcatch>
+				<cfcatch type="any"></cfcatch>
 				</cftry>
-				
 				<cfset redirectTo(argumentCollection=paramargs) />
 			</cfif>
 		</cfif>
@@ -83,15 +78,13 @@
 				<cfset loc.result = $user.resetPassword() />
 				<cfif loc.result.success>
 					<cftry>
-						<cfset sendEmail(from=$getSetting("email.default"), 
+						<cfset sendEmail(from=$getSetting("email.from.default"), 
 										 to=$user.emailaddress, 
 										 templates="/emailtemplates/passwordresetplain,/emailtemplates/passwordreset", 
 										 subject=$getSetting("email.passwordreset.subject"), 
 										 user=$user,
-										 password=loc.result.password) />
-					<cfcatch type="any">
-						<!--- playing catch --->
-					</cfcatch>
+										 userpassword=loc.result.password) />
+					<cfcatch type="any"></cfcatch>
 					</cftry>
 					<cfset flashInsert(success="Your password was reset and emailed to "&$user.emailaddress&".") />
 					<cfset redirectTo(action="resetpassword") />
