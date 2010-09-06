@@ -7,7 +7,10 @@
 		<h1 class="withcredits">#$user.getProfileImage()# #encodeOutput($user.getDisplayName())# <a href="#urlFor(route="userrss", userid=$user.id, text=encodeOutput($user.getDisplayName()))#">#imageTag("icon_rss.png")#</a> </h1>
 		<p class="credits">
 			<cfif isLoggedIn() AND session.user.id EQ $user.id>
-				#linkTo(route="editprofile", userid=$user.id, key="edit", text="Edit")# | 
+				#linkTo(route="editprofile", userid=$user.id, key="edit", text="Edit")# |
+				<cfif session.user.isTwitterUser()>
+					#linkTo(route="changepassword", text="Change Password")# |
+				</cfif> 
 			</cfif>
 			Member since: #getFormattedDate($user.createdat)#
 		</p>

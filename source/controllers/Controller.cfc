@@ -1,7 +1,7 @@
 <cfcomponent extends="Wheels" hint="Core controller with global functions">
 <!--- CONSTRUCTOR --->
 	<cffunction access="public" name="init" description="Constructor">
-		<cfset filters(through="$initializeProperties") />
+		<cfset filters(through="$initializeRequest") />
 	</cffunction>
 	
 <!--- PUBLIC METHODS --->
@@ -10,8 +10,13 @@
 	</cffunction>
 	
 <!--- PRIVATE METHODS --->
-	<cffunction access="private" name="$initializeProperties" description="Initializes global properties for all controllers">
-		<!---<cfset $latesttags = model("tag").getTopTags() />--->
+	<cffunction access="private" name="$initializeRequest" description="Initializes the request">
+		<cfif isLoggedIn()>
+			<cfset session.user.reload() />
+			<cfif session.user.ispasswordreset && params.action NEQ "changepassword">
+				<cfset redirectTo(route="changepassword") />
+			</cfif>
+		</cfif>
 	</cffunction>
 
 	<cffunction access="private" name="$authorize" description="Authorizes the users access to a specific portion of the site; redirects if fails">

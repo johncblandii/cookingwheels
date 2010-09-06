@@ -77,6 +77,21 @@
 	</cffunction>
 
 <!--- PUBLIC METHODS --->
+	<cffunction access="public" name="changePassword" returntype="boolean">
+		<cfargument name="oldpassword" required="true" type="string" />
+		<cfargument name="password" required="true" type="string" />
+		<cfargument name="passwordConfirmation" required="true" type="string" />
+		<cfif $getPassswordHash(oldpassword, this.passwordsalt) NEQ this.password>
+			<cfset this.addError("oldpassword", "Old password does not match current password.") />
+		</cfif>
+		<cfset this.setProperties(arguments) />
+		<cfif this.valid()>
+			<cfset this.ispasswordreset = 0 />
+			<cfreturn this.save() />
+		</cfif>
+		<cfreturn false />
+	</cffunction>
+	
 	<cffunction access="public" name="updatePassword" returntype="boolean" hint="Updates the users password; note: model.password must be set first">
 		<cfset var args = structNew() />
 		<cfset $saltPassword() />

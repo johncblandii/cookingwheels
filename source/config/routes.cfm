@@ -15,7 +15,8 @@ The use of some specific routes here is to circumvent having to create multiple 
 	<cfset addRoute(name="signout", pattern="user/signout", controller="user", action="signout") />
 	<cfset addRoute(name="signup", pattern="user/signup", controller="user", action="signup") />
 	<cfset addRoute(name="signin", pattern="user/signin", controller="user", action="signin") />
-	<cfset addRoute(name="signin", pattern="user/resetpassword", controller="user", action="resetpassword") />
+	<cfset addRoute(name="resetpassword", pattern="user/resetpassword", controller="user", action="resetpassword") />
+	<cfset addRoute(name="changepassword", pattern="user/changepassword", controller="user", action="changepassword") />
 	<cfset addRoute(name="editprofile", pattern="user/[userid]/m/[key]", controller="user", action="manage") />
 	<cfset addRoute(name="userprofile", pattern="user/[userid]/[text]", controller="user", action="profile") />
 	<cfset addRoute(name="userprofile", pattern="user/[userid]", controller="user", action="profile") />

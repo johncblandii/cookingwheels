@@ -2,6 +2,7 @@
 <!--- CONSTRUCTOR --->
 	<cffunction access="public" name="init" hint="Constructor">
 		<cfset super.init() />
+		<cfset filters(through="$authorize", only="manage,changepassword,signout") />
 	</cffunction>
 
 <!--- PUBLIC METHODS --->	
@@ -100,10 +101,37 @@
 		</cfif>
 	</cffunction>
 	
+	<cffunction access="public" name="changepassword" hint="Changes the users password">
+		<cfif isPost() AND isDefined("params.$user")>
+			<cfset $user = model("user").findOneById(session.user.id) />
+			<cfif $user.changePassword(argumentCollection=params.$user)>
+				<cfset flashInsert(success="Your password was successfully changed.") />
+				<cftry>
+					<cfset sendEmail(from=$getSetting("email.from.default"), 
+									 to=$user.emailaddress, 
+									 templates="/emailtemplates/passwordchangedplain,/emailtemplates/passwordchanged", 
+									 subject=$getSetting("email.passwordchanged.subject"), 
+									 user=$user,
+									 userpassword=params.$user.password) />
+				<cfcatch type="any"></cfcatch>
+				</cftry>
+				<cfset redirectTo(action="changepassword") />
+			<cfelse>
+				<cfif NOT $user.hasErrors()>
+					<!--- if there aren't any errors, the save failed. --->
+					<cfset flashInsert(error="Unable to change password.") />
+				</cfif>
+			</cfif>
+		</cfif>
+		<cfif NOT isDefined("$user") OR (isDefined("$user") AND NOT isObject($user))>
+			<cfset $user = model("user").new() />
+		</cfif>
+	</cffunction>
+	
 	<cffunction access="public" name="profile" hint="Shows a users profile">
 		<cfif NOT isDefined("params.userid") AND NOT isLoggedIn()>
 			<cfset redirectTo(route="user") />
-		<cfelseif NOT isDefined("params.userid")>
+		<cfelseif NOT isDefined("params.userid") OR (isDefined("params.userid") AND NOT isNumeric("params.userid"))>
 			<cfset params.userid = session.user.id />
 		</cfif>
 		<cfset $user = model("user").findOneById(params.userid) />
