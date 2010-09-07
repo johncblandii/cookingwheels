@@ -21,6 +21,9 @@
 	
 	<cffunction access="public" name="recipe" hint="Shows one specific recipe entry">
 		<cfset var args = StructNew() />
+		<cfif NOT isDefined("params.recipeid")>
+			<cfset redirectTo(action="index") />
+		</cfif>
 		<cfset args.value = params.recipeid />
 		<cfset args.include = "user" />
 		<cfif isLoggedIn()>
@@ -32,24 +35,12 @@
 			<cfset params.$newcomment.recipeid = params.recipeid />
 			<cfset $newcomment.setProperties(params.$newcomment) />
 			<cfif $newcomment.save()>
-				<cftry>
-					<cfset sendEmail(from=$getSetting("email.from.default"), 
-									 to=$user.emailaddress, 
-									 templates="/emailtemplates/newrecipeplain,/emailtemplates/newrecipe", 
-									 subject=$getSetting("email.recipe.new.subject"), 
-									 user=$recipe.user,
-									 recipe=$recipe) />
-				<cfcatch type="any">
-					<!--- playing catch --->
-				</cfcatch>
-				</cftry>
-				
 				<cfset redirectTo(argumentCollection=params) /><!--- self-redirect --->
 			</cfif>
 		</cfif>
 		<cfif isObject($recipe)>
-			<cfif NOT $recipe.isApproved() AND NOT isLoggedIn() OR
-					(isLoggedIn() AND $recipe.user.id NEQ session.user.id)>
+			<cfif (NOT $recipe.isApproved() AND NOT isLoggedIn()) OR
+					(isLoggedIn() AND NOT $recipe.isApproved() AND $recipe.user.id NEQ session.user.id)>
 				<cfset $recipe = false />
 			<cfelse>
 				<cfset pagetitle = $recipe.title />
@@ -59,16 +50,33 @@
 	
 	<cffunction access="public" name="manage" hint="Manages one specific recipe entry">
 		<cfset var redirect = StructNew() />
-		<cfset redirect.route = "recipe" />
-		<cfset redirect.resultkeys = "recipeid,text" />
-		<cfset redirect.resultvalues = "id,title" />
 		<cfif isDefined("params.recipeid")>
 			<cfset params.value = params.recipeid />
 		</cfif>
 		<cfif NOT isDefined("params.key")>
 			<cfset params.key = "new" />
 		</cfif>
+		<cfif params.key NEQ "new">
+			<cfset redirect.route = "recipe" />
+			<cfset redirect.resultkeys = "recipeid,text" />
+			<cfset redirect.resultvalues = "id,title" />
+		</cfif>
 		<cfset $doDetailPage("recipe", redirect) />
+		
+		<cfif isPost() AND NOT $data.isNew()>
+			<cftry>
+				<cfset sendEmail(from=$getSetting("email.from.default"), 
+								 to=$getSetting("email.to.admins"), 
+								 templates="/emailtemplates/newrecipeplain,/emailtemplates/newrecipe", 
+								 subject=$getSetting("email.recipe.new.subject"), 
+								 user=$data.user(),
+								 recipe=$data) />
+			<cfcatch type="any">
+				<cfdump var="#cfcatch#" abort="true" />
+			</cfcatch>
+			</cftry>
+			<cfset redirectTo(route="managerecipe", recipeid=$data.id, text=$data.title) />
+		</cfif>
 		
 		<cfif NOT $data.isNew()>
 			<cfif $data.userid NEQ session.user.id>

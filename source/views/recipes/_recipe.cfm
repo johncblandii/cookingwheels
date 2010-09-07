@@ -25,7 +25,7 @@
 		</cfloop>
 	</p>
 	
-	<cfif isDefined("$recipe.documentationlink")>
+	<cfif isDefined("$recipe.documentationlink") AND len($recipe.documentationlink) GT 0>
 		<h3>Documentation Url</h3>
 		<p>#autoLink($recipe.documentationlink)#</p>
 	</cfif>

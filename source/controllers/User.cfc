@@ -59,6 +59,7 @@
 			<cfelse>
 				<cfset flashInsert(error="Invalid username and/or password.") />
 			</cfif>
+			<cfset $user = false />
 		</cfif>
 		<cfif NOT isDefined("$user") OR (isDefined("$user") AND NOT isObject($user))>
 			<cfset $user = model("user").new() />

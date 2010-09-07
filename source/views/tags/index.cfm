@@ -10,6 +10,7 @@
 			<li>#linkTo(route="tagrecipes", slug=tag.slug, text=encodeOutput(tag.name))#</li> 
 		</cfloop>
 		</ul>
+		<div class="paddles"></div>
 	<cfelse>
 		<p id="introduction">#linkTo(route="newrecipe", text="Submit a post")# and tag it!</p>
 	</cfif>

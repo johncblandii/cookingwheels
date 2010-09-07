@@ -75,7 +75,9 @@
 					<cfset structDelete(arguments.redirectParams, "resultkeys") />
 					<cfset structDelete(arguments.redirectParams, "resultvalues") />
 				</cfif>
-				<cfset redirectTo(argumentCollection=arguments.redirectParams) />
+				<cfif isDefined("arguments.redirectParams") AND structCount(arguments.redirectParams) GT 0>
+					<cfset redirectTo(argumentCollection=arguments.redirectParams) />
+				</cfif>
 			</cfif>
 		</cfif>
 	</cffunction>
