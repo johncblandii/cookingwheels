@@ -20,5 +20,5 @@
 		</li>
 	</cfloop>
 	</ul>
-	<!---#paginationLinks(route="users", page=params.page)#--->
+	#paginationLinks(route="users", page=params.page)#
 </cfoutput>

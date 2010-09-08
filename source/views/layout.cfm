@@ -71,9 +71,9 @@
 				</div>
 				<div class="block">
 					<h3>Powered by...</h3>
-					<a href="##" class="cfwheels">ColdFusion on Wheels</a>
-					<p>Built with <br /><a href="##">ColdFusion on Wheels</a>.</p>
-					<p><a href="##">Download the<br />source code</a> at GitHub.</p>
+					<a href="http://cfwheels.org" class="cfwheels">ColdFusion on Wheels</a>
+					<p>Built with <br /><a href="http://cfwheels.org">ColdFusion on Wheels</a>.</p>
+					<p><a href="http://github.com/johncblandii/cookingwheels">Download the<br />source code</a> at GitHub.</p>
 				</div>
 			</div>
 		</div>
