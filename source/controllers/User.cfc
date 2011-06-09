@@ -6,8 +6,9 @@
 	</cffunction>
 
 <!--- PUBLIC METHODS --->	
-	<cffunction access="public" name="index" hint="Defalt">
-		<cfset $users = model('user').findAll(order="lastname, firstname, username ASC", page=1) />
+	<cffunction access="public" name="index" hint="Default">
+		<cfparam name="params.page" type="numeric" default="1" />
+		<cfset $users = model('user').findAll(order="lastname, firstname, username ASC", page=params.page) />
 	</cffunction>
 	
 	<cffunction access="public" name="signup" hint="Registers a user for the site">
@@ -130,11 +131,13 @@
 	</cffunction>
 	
 	<cffunction access="public" name="profile" hint="Shows a users profile">
-		<cfif NOT isDefined("params.userid") AND NOT isLoggedIn()>
-			<cfset redirectTo(route="user") />
-		<cfelseif NOT isDefined("params.userid") OR (isDefined("params.userid") AND NOT isNumeric("params.userid"))>
+		<cfparam name="params.userid" default="0" />
+		<cfif params.userid EQ 0 AND NOT isLoggedIn()>
+			<cfset redirectTo(route="users") />
+		<cfelseif params.userid EQ 0 AND isLoggedIn()>
 			<cfset params.userid = session.user.id />
 		</cfif>
+		
 		<cfset $user = model("user").findOneById(params.userid) />
 	</cffunction>
 	
@@ -151,7 +154,8 @@
 		<cfset paramargs.route = "userprofile" />
 		<cfset paramargs.userid = session.user.id />
 		<cfset paramargs.text = session.user.getDisplayName() />
-		<cfset $doDetailPage(table="user", redirectParams=paramargs) />
+		<cfset super.$doDetailPage(table="user", redirectParams=paramargs) />
+		<cfset structdelete($data, "password") /><!--- remove the password so it isn't visible in the form --->
 	</cffunction>
 	
 	<cffunction access="public" name="authtwitter" hint="Callback from twitter">

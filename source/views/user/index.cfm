@@ -3,19 +3,19 @@
 	<h1>Our Community</h1>
 	<ul class="userlist">
 	<cfset i = 0 />
-	<cfloop array="#$users#" index="user">
+	<cfloop query="$users">
 		<cfset i = i + 1 />
 		<li class="#getAlternatingClass(i)#">
-			#user.getProfileImage()#
-			#linkTo(route="userprofile", userid=user.id, text=user.getDisplayName())#
+			#getUserProfileImage(profileimageurl, emailaddress)#
+			#linkTo(route="userprofile", userid=id, text=getUserDisplayName(username, firstname, middleinitial, lastname, suffix))#
 			<br />
 			<p class="credits">
-				Joined: #getFormattedDate(user.createdat)#
+				Joined: #getFormattedDate(createdat)#
 				<br />
-				<cfif len(user.twitterusername)>
-					#encodeOutput("@"&user.twitterusername)# | 
+				<cfif len(twitterusername)>
+					#encodeOutput("@"&twitterusername)# | 
 				</cfif>
-				Recipes: #arraylen(user.recipes())#
+				Recipes: #recipecount#
 			</p>
 		</li>
 	</cfloop>

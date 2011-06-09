@@ -1,11 +1,7 @@
-﻿<cfif NOT isDefined("recipe.user")>
-	<!--- In case the user wasn't included in the query, pull it here --->
-	<cfset recipe.user = recipe.user() />
-</cfif>
-<cfoutput>
+﻿<cfoutput>
 <li>
-	#linkTo(class="title", route="recipe", rel="bookmark", title="Permanent link to " & encodeOutput(recipe.title), recipeid=recipe.id, text=encodeOutput(recipe.title))#
-	<p class="credits">#getFormattedDate(recipe.createdat, "MMMM dd, yyyy")# by #linkTo(route="userprofile", userid=recipe.user.id, text=encodeOutput(recipe.user.getDisplayName()))#</p>
-	<p>#encodeOutput(recipe.problem)#</p>
+	#linkTo(class="title", route="recipe", rel="bookmark", title="Permanent link to " & encodeOutput(title), recipeid=id, text=encodeOutput(title))#
+	<p class="credits">#getFormattedDate(createdat, "MMMM dd, yyyy")# by #linkTo(route="userprofile", userid=userid, text=encodeOutput(arguments.user))# | #commentcount# #linkTo(route="recipe", title="Skip to comments", recipeid=id, anchor="comments", text="Comments")#</p>
+	<p>#encodeOutput(problem)#</p>
 </li>
 </cfoutput>

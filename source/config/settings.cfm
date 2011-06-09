@@ -6,7 +6,7 @@
 	<cfset set(google.analytics.trackerId="UA-7157770-2") />
 	
 	<!--- Framework --->
-	<cfset set(functionName="findAll", perPage=20, returnas="object") />
+	<cfset set(functionName="findAll", perPage=20) />
 	<cfset set(functionName="mailTo", encode=true) />
 	
 	<cfset set(functionName="validatesConfirmationOf", message="[property] doesn't match confirmation") />
@@ -36,5 +36,4 @@
 	<cfset set(obfuscateUrls="true") />
 	<cfset set(reloadPassword="cookit") />
 	<cfset set(sendEmailOnError=true) />
-	<cfset set(errorEmailAddress="dev-team@cookingwheels.com") />
-	<cfset set(errorEmailServer="smtp.gmail.com") />
+	<cfset set(errorEmailAddress="noreply@cookingwheels.com") />

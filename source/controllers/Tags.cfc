@@ -25,7 +25,7 @@
 		<!--- @johncblandii this isn't named $tag because of line 135 in wheels/view/miscellaneous.cfm; it references $tag --->
 		<cfset $recipetag = model("tag").findOneBySlug(params.slug) />
 		<cfif isObject($recipetag)>
-			<cfset $recipes = model("recipe").findAll(where="recipetags.tagid="&$recipetag.id, include="recipetag") />
+			<cfset $recipes = model("recipe").findAll(where="recipetags.tagid="&$recipetag.id, include="user, recipetag") />
 		<cfelse>
 			<cfset redirectTo(action="index") />
 		</cfif>

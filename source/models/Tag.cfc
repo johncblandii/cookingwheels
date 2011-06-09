@@ -47,10 +47,10 @@
 			<cfset arguments.tagid = this.id />
 			<cfset result = ArrayNew(1) />
 			<cfset recipetags = model("recipe").findAllByTagID(argumentCollection=arguments) /> <!--- by using the arguments scope, we can pass in any findAll params from outside of the model --->
-			<cfif isArray(recipetags)>
+			<cfif isQuery(recipetags) AND recipetags.recordCount GT 0>
 				<!--- there is probably a better Wheels way...but not at 3:39 AM --->
-				<cfloop array="#recipetags#" index="recipetag">
-					<cfset result[i] = recipetag.recipe />
+				<cfloop query="#recipetags#">
+					<cfset result[i] = recipe />
 					<cfset i = i+1 />
 				</cfloop>
 			</cfif>

@@ -18,7 +18,4 @@
 			<cfset this.userid = session.user.id />
 		</cfif>
 	</cffunction>
-
-<!--- PUBLIC METHODS --->
-
 </cfcomponent>

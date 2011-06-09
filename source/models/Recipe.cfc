@@ -16,6 +16,9 @@
 			<cfset validatesLengthOf(properties="tags", allowBlank=false, minimum=2) />
 			<cfset validatesFormatOf(properties="documentationlink", format="url", allowblank="true", message="The documentation url must be a valid url.") />
 			
+		<!--- PROPERTIES --->
+			<cfset property(name="commentcount", sql="select count(id) from comments where comments.recipeid = recipes.id AND deletedat IS NULL") />
+			
 		<!--- CALLBACKS --->
 			<cfset beforeSave("$beforeSave") />
 			<cfset afterSave("$afterSave") />
@@ -65,16 +68,16 @@
 		<cfset this.tags = "" />
 		<cfif isDefined("this.id")>
 			<cfset loc.tags = model("recipeTag").findAllByRecipeID(value=this.id, include="tag") />
-			<cfif isArray(loc.tags)>
-				<cfloop array="#loc.tags#" index="rt">
-					<cfset this.tags = listAppend(this.tags, rt.tag.name) />
+			<cfif isQuery(loc.tags) AND loc.tags.recordCount GT 0>
+				<cfloop query="loc.tags">
+					<cfset this.tags = listAppend(this.tags, name) />
 				</cfloop>
 			</cfif>
 		</cfif>
 	</cffunction>
 	
 	<cffunction access="public" name="getHomepageRecipes" hint="Pulls recipes specific to the homepage">
-		<cfreturn findAll(maxRows=5, order="createdat DESC") />
+		<cfreturn findAll(maxRows=5, order="createdat DESC", include="user") />
 	</cffunction>
 	
 	<cffunction access="public" name="findAll" hint="Override to force only approved recipes to show up">

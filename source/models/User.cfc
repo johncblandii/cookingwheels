@@ -15,6 +15,9 @@
 			<cfset validatesFormatOf(properties="facebookurl", format="url", allowblank="true", message="The Facebook url must be a valid url.") />
 			<cfset validatesFormatOf(properties="profileimageurl", format="url", allowblank="true", message="The profile image url must be a valid url.") />
 			<cfset validatesConfirmationOf(property="password") />
+			
+		<!--- PROPERTIES --->
+			<cfset property(name="recipecount", sql="(select count(*) from recipes where recipes.userid = users.id and deletedat IS NULL and !(approvedat IS NULL))") />
 		
 		<!--- CALLBACKS --->
 			<cfset beforeCreate("$beforeCreate") />
@@ -70,10 +73,6 @@
 			<cfset arguments.pw = hash(arguments.pw & arguments.pwsalt, 'SHA-512') />
 		</cfloop>
 		<cfreturn arguments.pw />
-	</cffunction>
-	
-	<cffunction access="private" name="getUniqueValue" hint="Gets a unique value for passwords and salts">
-		<cfreturn mid(CreateUUID(), 1, 7) />
 	</cffunction>
 
 <!--- PUBLIC METHODS --->

@@ -18,4 +18,8 @@
 		</cfif>
 		<cfreturn arguments.url />
 	</cffunction>
+	
+	<cffunction access="private" name="getUniqueValue" hint="Gets a unique value for passwords, salts, etc">
+		<cfreturn mid(CreateUUID(), 1, 7) />
+	</cffunction>
 </cfcomponent>

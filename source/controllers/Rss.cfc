@@ -27,20 +27,18 @@
 		<cfset var rssxml = "" />
 		<cfset var i = 1 />
 		<cfset var rssdata = getCoreRSSData() />
-		<cfif isArray(arguments.recipes)>
-			<cfloop array="#arguments.recipes#" index="recipe">
-				<cfif NOT isDefined("recipe.user")>
-					<cfset recipe.user = recipe.user() />
-				</cfif>
+		<cfif isQuery(arguments.recipes) AND arguments.recipes.recordCount GT 0>
+			<cfloop query="arguments.recipes">
+				<cfset local.username = getUserDisplayName(username, firstname, middleinitial, lastname, suffix) />
 				<cfset rssdata.item[i] = StructNew() />
-				<cfset rssdata.item[i].title = recipe.title />
-				<cfset rssdata.item[i].author = recipe.user.getDisplayName() />
+				<cfset rssdata.item[i].title = title />
+				<cfset rssdata.item[i].author = local.username />
 				<cfset rssdata.item[i].description = structNew() />
-				<cfset rssdata.item[i].description.value = "<h3>Author</h3>" & linkTo(onlypath=false, route="userprofile", userid=recipe.user.id, text=recipe.user.getDisplayName()) & "<h1>Problem</h1><p>" & recipe.problem & "</p><h2>Solution</h2></p>" & recipe.solution & "</p>" />
+				<cfset rssdata.item[i].description.value = "<h3>Author</h3>" & linkTo(onlypath=false, route="userprofile", userid=userid, text=local.username) & "<h1>Problem</h1><p>" & problem & "</p><h2>Solution</h2></p>" & solution & "</p>" />
 				<cfset rssdata.item[i].guid = structNew() />
 				<cfset rssdata.item[i].guid.isPermaLink = true />
-				<cfset rssdata.item[i].guid.value = urlFor(onlypath=false, route="recipe", recipeid=recipe.id, text=recipe.title) />
-				<cfset rssdata.item[i].pubdate = recipe.createdat />
+				<cfset rssdata.item[i].guid.value = urlFor(onlypath=false, route="recipe", recipeid=id, text=title) />
+				<cfset rssdata.item[i].pubdate = createdat />
 				<cfset rssdata.item[i].comments = rssdata.item[i].guid.value & "##comments" />
 				<cfset i = i+1 />
 			</cfloop>

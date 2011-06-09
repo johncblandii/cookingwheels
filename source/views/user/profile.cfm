@@ -31,12 +31,12 @@
 			<p>#encodeOutput($user.about)#</p>
 		</cfif>
 		<cfset $recipes = $user.getRecentRecipes() />
-		<cfif isArray($recipes) AND isArray($recipes) AND arraylen($recipes) GT 0>
+		<cfif isQuery($recipes) AND $recipes.recordCount GT 0>
 			<hr /><br />
 			<h3>Recent Recipes</h3>
 			<ul>
-			<cfloop array="#$recipes#" index="recipe">
-				#includePartial(partial="/recipes/recipesimple", $recipe=recipe)#
+			<cfloop query="$recipes">
+				#includePartial(partial="/recipes/recipesimple", id=id, title=title, problem=problem, commentcount=commentcount, createdat=createdat, updatedat=updatedat, userid=userid, user=getUserDisplayName($user.username, $user.firstname, $user.middleinitial, $user.lastname, $user.suffix))#
 			</cfloop>
 			</ul>
 		</cfif>

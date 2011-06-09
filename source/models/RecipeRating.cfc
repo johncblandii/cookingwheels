@@ -5,10 +5,4 @@
 			<cfset belongsTo("recipe") />
 			<cfset belongsTo("user") />
 	</cffunction>
-
-<!--- CALLBACKS --->
-
-<!--- PRIVATE METHODS --->
-
-<!--- PUBLIC METHODS --->
 </cfcomponent>

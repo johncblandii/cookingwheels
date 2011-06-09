@@ -8,7 +8,7 @@
 	<h1 class="withcredits">#encodeOutput($recipe.title)#</h1>
 	<p class="credits">
 		<cfif isLoggedIn() AND $recipe.userid EQ session.user.id>#linkTo(route="managerecipe", key="edit", recipeid=$recipe.id, text="Edit")# | </cfif>
-		#getFormattedDate($recipe.getLatestDate())# by #linkTo(route="userprofile", userid=$recipe.userid, text=$recipe.user.getDisplayName())#
+		#getFormattedDate($recipe.getLatestDate())# by #linkTo(route="userprofile", userid=$recipe.userid, text=$recipe.user.getDisplayName())# | <a href="##comments">Jump to comments</a>
 	</p>
 	<br />
 	<h3>Problem</h3>
@@ -20,8 +20,9 @@
 	
 	<h3>Tagged</h3>
 	<p>
-		<cfloop array="#$recipe.recipeTag(include='tag')#" index="recipetag">
-			#linkTo(route="tagrecipes", slug=recipetag.tag.slug, text=recipetag.tag.name)#
+		<cfset tags = $recipe.recipeTag(include='tag') />
+		<cfloop query="tags">
+			#linkTo(route="tagrecipes", slug=slug, text=name)#
 		</cfloop>
 	</p>
 	
