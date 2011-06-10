@@ -19,14 +19,42 @@
 		<cfset pagetitle = "Top 10 Recipes" />
 	</cffunction>
 	
-	<cffunction access="public" name="recipe" hint="Shows one specific recipe entry">
-		<cfset var args = StructNew() />
-		<cfif NOT isDefined("params.recipeid")>
-			<cfset redirectTo(action="index") />
+	<cffunction access="public" name="approve" hint="Approve the recipe">
+		<cfif NOT isLoggedIn() OR (isLoggedIn() AND session.user.usertypeid NEQ 1)>
+			<cfset redirectTo(route="home") />
+		<cfelseif NOT isDefined("params.recipeid")>
+			<cfset redirectTo(controller="recipes") />
 		</cfif>
 		<cfset args.value = params.recipeid />
 		<cfset args.include = "user" />
-		<cfif isLoggedIn()>
+		<cfif isLoggedIn() AND session.user.usertypeid EQ 1>
+			<cfset args.forceApproved = false />
+		</cfif>
+		
+		<cfset $recipe = model("recipe").findOneByID(argumentCollection=args) />
+		<cfset $recipe.approvedat = now() />
+		<cfif $recipe.save(callbacks=false, validate=false)>
+			<cfset sendEmail(from=$getSetting("email.from.default"), 
+							 to=$recipe.user.emailaddress,
+							 bcc= $getSetting("email.to.admins"),
+							 templates="/emailtemplates/approvedrecipeplain,/emailtemplates/approvedrecipe", 
+							 subject=$getSetting("email.recipe.approved.subject"), 
+							 user=$recipe.user,
+							 recipe=$recipe) />
+			<cfset redirectTo(route="recipe", recipeid=$recipe.id, key=$recipe.title) />
+		</cfif>
+		<cfdump var="#$recipe.allerrors()#" abort />
+		<cfabort />
+	</cffunction>
+	
+	<cffunction access="public" name="recipe" hint="Shows one specific recipe entry">
+		<cfset var args = StructNew() />
+		<cfif NOT isDefined("params.recipeid")>
+			<cfset redirectTo(controller="recipes") />
+		</cfif>
+		<cfset args.value = params.recipeid />
+		<cfset args.include = "user" />
+		<cfif isLoggedIn() AND session.user.usertypeid EQ 1>
 			<cfset args.forceApproved = false />
 		</cfif>
 		<cfset $recipe = model("recipe").findOneByID(argumentCollection=args) />
@@ -40,7 +68,7 @@
 		</cfif>
 		<cfif isObject($recipe)>
 			<cfif (NOT $recipe.isApproved() AND NOT isLoggedIn()) OR
-					(isLoggedIn() AND NOT $recipe.isApproved() AND $recipe.user.id NEQ session.user.id)>
+					(isLoggedIn() AND NOT $recipe.isApproved() AND ($recipe.user.id NEQ session.user.id AND session.user.usertypeid NEQ 1))>
 				<cfset $recipe = false />
 			<cfelse>
 				<cfset pagetitle = $recipe.title />
@@ -61,7 +89,10 @@
 			<cfset redirect.resultkeys = "recipeid,text" />
 			<cfset redirect.resultvalues = "id,title" />
 		</cfif>
-		<cfset $doDetailPage("recipe", redirect) />
+		<cfif isLoggedIn()>
+			<cfset local.queryArgs = {forceApproved=false} />
+		</cfif>
+		<cfset super.$doDetailPage("recipe", redirect, local.queryArgs) />
 		
 		<cfif isPost() AND NOT $data.isNew()>
 			<cftry>
@@ -72,15 +103,14 @@
 								 user=$data.user(),
 								 recipe=$data) />
 			<cfcatch type="any">
-				<cfdump var="#cfcatch#" abort="true" />
 			</cfcatch>
 			</cftry>
 			<cfset redirectTo(route="managerecipe", recipeid=$data.id, text=$data.title) />
 		</cfif>
 		
 		<cfif NOT $data.isNew()>
-			<cfif $data.userid NEQ session.user.id>
-				<cfset redirectTo(action="index") />
+			<cfif $data.userid NEQ session.user.id AND session.user.usertypeid NEQ 1>
+				<cfset redirectTo(controller="recipes") />
 			</cfif>
 			<cfset $data.loadTags() />
 		</cfif>

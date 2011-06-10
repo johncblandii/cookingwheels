@@ -59,11 +59,7 @@
 	
 	<cffunction access="public" name="tag" hint="Feeds by user">
 		<cfparam name="params.slug" type="string" default="n/a" /><!--- set an invalid user id so it returns nothing --->
-		<cfset var tag = model("tag").findOneBySlug(value=params.slug) />
-		<cfset var recipes = "" />
-		<cfif isObject(tag)>
-			<cfset recipes = tag.getRecipes(include="user", order="createdat DESC", maxRows="20") />
-		</cfif>
+		<cfset var recipes = model("recipetag").findall(where="slug='#params.slug#'", include="tag,recipe(user)") />
 		<cfset renderRSS(recipes) />
 	</cffunction>
 </cfcomponent>

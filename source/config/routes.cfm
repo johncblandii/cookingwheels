@@ -31,6 +31,7 @@ The use of some specific routes here is to circumvent having to create multiple 
 	<cfset addRoute(name="newrecipe", pattern="recipe/submit/[key]/[value]", controller="recipes", action="manage") />
 	<cfset addRoute(name="newrecipe", pattern="recipe/submit/[key]", controller="recipes", action="manage") />
 	<cfset addRoute(name="newrecipe", pattern="recipe/submit", controller="recipes", action="manage", key="new") />
+	<cfset addRoute(name="approverecipe", pattern="recipe/[recipeid]/approve", controller="recipes", action="approve") />
 	<cfset addRoute(name="managerecipe", pattern="recipe/[recipeid]/m/[key]", controller="recipes", action="manage") />
 	<!---
 		<cfset addRoute(name="recipe", pattern="recipe/[recipeid]/[text]", controller="recipes", action="recipe") />

@@ -2,7 +2,7 @@
 <!--- CONSTRUCTOR --->
 	<cffunction access="public" name="init" hint="Constructor">
 		<!--- RELATIONSHIPS --->
-			<cfset belongsTo("recipetags") />
+			<cfset belongsTo(name="recipetags", foreignkey="id") />
 			<cfset belongsTo("user") />
 			
 		<!--- VALIDATIONS --->
@@ -44,12 +44,12 @@
 		<cfset var recipetags = "" />
 		<cfset var i = 1 />
 		<cfif isDefined("this.id")>
-			<cfset arguments.tagid = this.id />
+			<cfset arguments.value = this.id />
 			<cfset result = ArrayNew(1) />
-			<cfset recipetags = model("recipe").findAllByTagID(argumentCollection=arguments) /> <!--- by using the arguments scope, we can pass in any findAll params from outside of the model --->
+			<cfset result = model("recipe").findAllByTagID(argumentCollection=arguments) /> <!--- by using the arguments scope, we can pass in any findAll params from outside of the model --->
 			<cfif isQuery(recipetags) AND recipetags.recordCount GT 0>
 				<!--- there is probably a better Wheels way...but not at 3:39 AM --->
-				<cfloop query="#recipetags#">
+				<cfloop query="recipetags">
 					<cfset result[i] = recipe />
 					<cfset i = i+1 />
 				</cfloop>

@@ -2,7 +2,7 @@
 <!--- CONSTRUCTOR --->
 	<cffunction access="public" name="init" hint="Constructor">
 		<!--- RELATIONSHIPS --->
-			<cfset belongsTo("recipe") />
-			<cfset belongsTo("tag") />
+			<cfset belongsTo(name="recipe", foreignkey="recipeid") />
+			<cfset belongsTo(name="tag", foreignkey="tagid") />
 	</cffunction>
 </cfcomponent>

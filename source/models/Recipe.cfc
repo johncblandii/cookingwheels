@@ -60,14 +60,14 @@
 		<cfset arguments.value = arguments.tagid />
 		<cfset structdelete(arguments, "tagid") />
 		<cfset arguments.include = "recipe" />
-		<cfreturn model("recipeTag").findAllByTagID(argumentCollection=arguments) />
+		<cfreturn model("recipetag").findAllByTagID(argumentCollection=arguments) />
 	</cffunction>
 	
 	<cffunction access="public" name="loadTags" hint="Pulls recipe tags and sets them to a custom 'tags' property">
 		<cfset var loc = structNew() />
 		<cfset this.tags = "" />
 		<cfif isDefined("this.id")>
-			<cfset loc.tags = model("recipeTag").findAllByRecipeID(value=this.id, include="tag") />
+			<cfset loc.tags = model("recipetag").findAllByRecipeID(value=this.id, include="tag") />
 			<cfif isQuery(loc.tags) AND loc.tags.recordCount GT 0>
 				<cfloop query="loc.tags">
 					<cfset this.tags = listAppend(this.tags, name) />
